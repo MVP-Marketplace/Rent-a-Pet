@@ -5,6 +5,8 @@ const mongoose = require("mongoose");
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+require("dotenv").config();
+
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -15,13 +17,17 @@ if (process.env.NODE_ENV === "production") {
 // Add routes, both API and view
 // app.use(routes);
 
+const MongoClient = require('mongodb').MongoClient;
+
 // Connect to the Mongo DB
-// mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/RSVP", {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-//   useCreateIndex: true,
-//   useFindAndModify: false,
-// });
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/rent-a-pet", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+  useFindAndModify: false,
+})
+.then(() => {console.log('DB OPEN')})
+.catch(err => console.log(`Could not Connected to db ${process.env.DB_CONNECTION} `, err));
 
 // Start the API
 app.listen(PORT, function () {
