@@ -6,4 +6,6 @@ module.exports = {
   PostLike: require("./postLike"),
   UserFeed: require("./userFeed"),
   UserFollower: require("./userFollower"),
+  PaymentMethod: require("./paymentMethod"),
+  BankDetails: require("./bankDetails"),
 };
