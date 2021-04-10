@@ -10,6 +10,8 @@ const paymentMethodRouter = require("./paymentMethod-api.js");
 /**
  * Implementing the nested routing structure to pull bank and payment information for the 
  * authenticated user.
+ * Fetch bank details by user id
+ * Fetch payment method by user id
  */
 
 router.use('/:userId/bankdetails', bankDetailsRouter);
