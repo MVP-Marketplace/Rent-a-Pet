@@ -2,7 +2,18 @@ const router = require ("express").Router();
 
 const userController = require("../../controllers/userController");
 
+const bankDetailsRouter = require("./bankDetails-api.js");
+const paymentMethodRouter = require("./paymentMethod-api.js");
+
 //the final route is /api/user 
+
+/**
+ * Implementing the nested routing structure to pull bank and payment information for the 
+ * authenticated user.
+ */
+
+router.use('/:userId/bankdetails', bankDetailsRouter);
+router.use('/:userId/paymentmethod', paymentMethodRouter);
 
 router
 .route("/")
@@ -20,5 +31,3 @@ router
 
 
 module.exports = router;
-
-

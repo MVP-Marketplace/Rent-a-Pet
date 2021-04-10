@@ -6,11 +6,15 @@ const router = require("express").Router();
 
 const userRoutes = require("./user-api");
 const petRoutes = require("./pet-api");
+const bankDetailsRoutes = require("./bankDetails-api");
+const paymentMethodRoutes = require("./paymentMethod-api");
 
 //user routes /api/user
 
 router.use("/user", userRoutes);
 router.use("/pet", petRoutes);
+router.use("/bankdetails", bankDetailsRoutes);
+router.use("/paymentmethod", paymentMethodRoutes);
 
 // If no API routes are hit, send the React app
 router.use(function (req, res) {
