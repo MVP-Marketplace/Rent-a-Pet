@@ -2,11 +2,11 @@ const router = require("express").Router();
 
 const petController = require("../../controllers/petController");
 
-//the final route is /api/user
+//the final route is /api/pet
 
 router.route("/").get(petController.findAll).post(petController.create);
 
-// /api/user/:id
+// /api/pet/:id
 
 router
   .route("/:id")
