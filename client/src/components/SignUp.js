@@ -1,16 +1,30 @@
 import React, { useCallback } from "react";
 import { withRouter } from "react-router";
-import firebaseApp from "../firebase/firebase.utils";
+
 
 const SignUp = ({ history }) => {
   const handleSignUp = useCallback(async event => {
     event.preventDefault();
     const { email, password } = event.target.elements;
     try {
-      await firebaseApp
-        .auth()
-        .createUserWithEmailAndPassword(email.value, password.value);
-      history.push("/");
+      /**
+       * hit the API route process.env.HOSTNAME/api/user
+       * with the following payload
+       * {
+       *  first_name
+       *  last_name
+       *  email_address
+       *  user_type 
+       *  status
+       *  password
+       * } 
+       * 
+       * The API call creates the new user record in Firebase, returns the uid from Firebase
+       * and saves the user data (minus password) in our application database.
+       * */  
+        history.push("/");
+        
+
     } catch (error) {
       alert(error);
     }
