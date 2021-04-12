@@ -12,20 +12,6 @@ const Login = ({ history }) => {
 
   var token ='';
 
-  // firebaseApp.auth().onAuthStateChanged( async function(user) {
-  //   if (user) {
-  //     // User is signed in.
-  //     try {
-  //         token = await firebaseApp.auth.currentUser.getIdToken();
-  //     } catch (err) { alert(err); }
-  //   } else {
-  //     // No user is signed in.
-  //   }
-
-    
-  //   console.log(`Current Authed User ${firebaseApp.auth().currentUser}`);
-  //   console.log(`Current User Token ${token}`);
-  // });
     
   const handleLogin = useCallback(
     async event => {
@@ -40,7 +26,7 @@ const Login = ({ history }) => {
           return user.getIdToken()
             .then((idToken) => {
               console.log("User Token", idToken);
-              // this token need to be stored in state so it can be passed to the API in the http header.
+              // this token needs to be stored in state so it can be passed to any API calls in the http header.
             })
         })
 
