@@ -24,6 +24,8 @@ module.exports = {
   findById: function(req, res) {
     db.User
       .findById(req.params.id)
+      .populate('BankingInformation')
+      .populate('PaymentInformation')
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
@@ -78,6 +80,15 @@ module.exports = {
     firebase_uid: newUid
 }
 console.log(`New user Object: ${newUser}`)
+    /**
+     * The request may include the following 
+     * UserProfile: {fName, LName, emailAddress, uid},
+     * PetPreferences: {species, age, gender},
+     * BankingDetails: {abaNumber, accountNumber},
+     * PaymentDetails: {cardNumber, expirationDate, billingZipCode}
+     * 
+     * First save the User, then call the controller to save the other elements in their respective tables.
+     */
 
     db.User
       .create(newUser)

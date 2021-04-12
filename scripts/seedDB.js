@@ -24,6 +24,22 @@ const petSeed = [
     classification: "domestic",
     status: "active",
   },
+  {
+    name: "Fluffy",
+    species: "Cat",
+    age: 6,
+    owner_id: "198",
+    classification: "domestic",
+    status: "active",
+  },
+  {
+    name: "Jaws",
+    species: "Lizard",
+    age: 12,
+    owner_id: "198",
+    classification: "exotic",
+    status: "active",
+  }
 ];
 
 db.User.remove({})
