@@ -1,4 +1,6 @@
-const db = require("../models/index");
+const db = require("../models/index"),
+cloudinary = require('cloudinary').v2; 
+
 
 module.exports = {
   findAll: function (req, res) {
@@ -35,4 +37,16 @@ module.exports = {
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
+  uploadMedia: function async(req,res){
+    try{
+      const response = await cloudinary.uploader.upload(
+        req.files.avatar.tempFilePath
+      );
+      req.post.media = response.secure_url;
+      await req.post.save();
+      res.json(response);
+    }catch (error){
+        res.status(400).json(err);
+    }
+  }
 };

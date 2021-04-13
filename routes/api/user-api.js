@@ -29,7 +29,8 @@ router
 .route("/:id")
 .get(userController.findById)
 .put(userController.update)
-.delete(userController.remove);
+.delete(userController.remove)
+.post(userController.uploadAvatar);
 
 
 module.exports = router;

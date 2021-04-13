@@ -8,7 +8,8 @@ const petSchema = mongoose.Schema({
     age: {type: Number},
     owner_id: {type: String, required: true},
     classification: {type: String, required: true, default: "domestic"},
-    status: {type: String, required: true, default: "inactive"}
+    status: {type: String, required: true, default: "inactive"},
+    avatar:{type:String}
 })
 
 module.exports = mongoose.model("Pet", petSchema);

@@ -8,6 +8,7 @@ const userSchema = mongoose.Schema({
         user_type: {type: String, required: true},
         status: {type: String, required: true, default: "inactive"},
         uid: {type: String, required: true},
+        avatar: {type:String}
 
 },
 {

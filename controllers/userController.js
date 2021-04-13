@@ -1,4 +1,5 @@
-const db = require('../models/index');
+const db = require('../models/index'),
+cloudinary = require('cloudinary').v2;
 
 /** INDEX route - returns all Users */
 
@@ -78,6 +79,19 @@ module.exports = {
       .then(dbModel => dbModel.remove())
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
+  },
+  // **Upload Avatar **//
+  uploadAvatar: function async(req,res){
+    try{
+      const response = await cloudinary.uploader.upload(
+        req.files.avatar.tempFilePath
+      );
+      req.user.avatar = response.secure_url;
+      await req.user.save();
+      res.json(response);
+    }catch (error){
+        res.status(400).json(err);
+    }
   }
 
 }
