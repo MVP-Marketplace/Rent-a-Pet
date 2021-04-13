@@ -3,6 +3,7 @@ const session = require("express-session");
 
 const mongoose = require("mongoose");
 const routes = require('./routes/api/index');
+const fileUpload = require('express-fileupload');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -28,6 +29,14 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/rent-a-pet", {
 })
 .then(() => {console.log('DB OPEN')})
 .catch(err => console.log(`Could not Connected to db ${process.env.DB_CONNECTION} `, err));
+
+//File uploadedr 
+app.use(
+  fileUpload({
+    useTempFiles: true,
+    tempFileDir: '/tmp/images'
+  })
+);
 
 // Start the API
 app.listen(PORT, function () {
