@@ -13,7 +13,12 @@ const PaymentMethodSchema = mongoose.Schema({
     expiration_date: {type: String, required: true},
     CVV: {type: Number, required: true},
     billing_zipcode: {type: String, required: true},
-    status: {type: String, required: true, default: "inactive"}
+    status: {
+        type: String, 
+        required: true, 
+        enum: ['active','inactive'],
+        default: "inactive"
+    }
 })
 
 module.exports = mongoose.model("PaymentMethod", PaymentMethodSchema);

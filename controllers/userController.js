@@ -99,6 +99,7 @@ console.log(`New user Object: ${newUser}`)
     })
     .catch((error) => {
       console.log('Error creating new user: ', error);
+      res.status(422).json(err);
     });
 
   },

@@ -13,9 +13,28 @@ const SignUp = ({ history }) => {
       var userCredential = await firebaseApp
         .auth()
         .createUserWithEmailAndPassword(email.value, password.value);
-        console.log(userCredential);
-        console.log(userCredential.user);
-        console.log(userCredential.user.uid);
+        // console.log(userCredential);
+        // console.log(userCredential.user);
+        // console.log(userCredential.user.uid);
+        /** 
+         * Now need to pass the uid to the createUser API route so we store it in the DB.
+         * the value can be found in userCredential.user.uid
+         */
+        // const baseURL = 'http://localhost:3001/api'
+        // fetch(baseURL + 'user', {
+        //   method: 'POST',
+        //   headers: {
+        //     'Content-Type': 'application/json',
+        //     // 'Authorization': userCredential.user.uid
+        //   },
+        //   body: JSON.stringify({
+        //     first_name:
+        //     last_name: 
+        //     email_address: email.value,
+        //     uid: userCredential.user.uid
+        //   })
+
+        // })
       history.push("/");
     } catch (error) {
       alert(error);

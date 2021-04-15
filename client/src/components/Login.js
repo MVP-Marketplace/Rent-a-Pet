@@ -27,6 +27,7 @@ const Login = ({ history }) => {
             .then((idToken) => {
               console.log("User Token", idToken);
               // this token needs to be stored in state so it can be passed to any API calls in the http header.
+              // Authentication: 'Bearer'+tokenValueHere
             })
         })
 

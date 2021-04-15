@@ -1,4 +1,5 @@
-import admin from './firebase-service';
+const User = require( '../models/user');
+const admin = require('./firebase-service');
 
 
 const getAuthToken = (req, res, next) => {
@@ -14,15 +15,29 @@ const getAuthToken = (req, res, next) => {
 };
 
 
-export const checkIfAuthenticated = (req, res, next) => {
+const checkIfAuthenticated = (req, res, next) => {
+
+  // step 1: retrieve the authorization token
  getAuthToken(req, res, async () => {
     try {
       const { authToken } = req;
+
+  // step 2: decode the token and confirm it is valid.
       const userInfo = await admin
         .auth()
         .verifyIdToken(authToken);
       req.authId = userInfo.uid;
+
+      // step 3:  confirm the user associated with the token still exists in our database.
+
+      const confirmedUser = await User.find({
+        uid: req.authId
+      })
+      .then(confirmedUser => res.json(confirmedUser))
+      .catch(error => res.status(401).json(error));
+
       return next();
+
     } catch (e) {
       return res
         .status(401)
@@ -30,3 +45,5 @@ export const checkIfAuthenticated = (req, res, next) => {
     }
   });
 };
+
+module.exports = { checkIfAuthenticated, getAuthToken }
