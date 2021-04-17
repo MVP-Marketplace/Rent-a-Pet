@@ -9,7 +9,6 @@ const userSchema = mongoose.Schema({
         status: {type: String, required: true, default: "inactive"},
         uid: {type: String, required: true},
         avatar: {type:String}
-
 },
 {
     toJSON: { virtuals: true }
