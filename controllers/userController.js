@@ -1,5 +1,5 @@
 const { response } = require('express');
-const db = require('../models/index'),
+const db = require('../models/index');
 cloudinary = require('cloudinary').v2;
 
 /** INDEX route - returns all Users */
@@ -88,6 +88,12 @@ module.exports = {
     // otherwise, cloudinary assumes the path is relative to where server.js resides.
     // TO DO - turn Cloudinary call into middleware to keep from repeating code in multiple files.
 
+    /**
+     * 
+     * UnhandledPromiseRejectionWarning
+     * This means that a promise you called rejected, but there was no catch used to handle the error. Add a catch after the offending then to handle this properly.
+     */
+
       const userId = req.params.id;
       
 
@@ -105,6 +111,12 @@ module.exports = {
           })
           .catch(dbErr => res.status(500).json(dbErr))
           
+      })// I think the missing catch should go here.
+      .catch((findErr) => {
+        res.status(402).json({
+          message: 'User not found',
+          findErr
+        })
       })
       .then((saveResult) => {
         res.status(200).json({

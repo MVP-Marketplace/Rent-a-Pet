@@ -1,4 +1,4 @@
-const db = require("../models/index"),
+const db = require("../models/index");
   cloudinary = require('cloudinary').v2;
 
 /** INDEX route - returns all Pet */
