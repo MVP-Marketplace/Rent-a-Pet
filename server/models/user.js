@@ -18,7 +18,7 @@ const userSchema = mongoose.Schema({
             default: "inactive"
         },
         firebase_uid: {type: String, required: true},
-
+        avatar: {type:String}
 },
 {
     toJSON: { virtuals: true }

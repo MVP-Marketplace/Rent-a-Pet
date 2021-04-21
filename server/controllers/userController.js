@@ -1,4 +1,6 @@
+const { response } = require('express');
 const db = require('../models/index');
+cloudinary = require('cloudinary').v2;
 
 const firebaseAdmin = require("../firebase-server-side/firebase-server-side-utils"); 
 const admin = require('firebase-admin');
@@ -132,6 +134,60 @@ console.log(`New user Object: ${newUser}`)
       .then(dbModel => dbModel.remove())
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
+  },
+  // **Upload Avatar **//
+  uploadAvatar: async function (req,res){
+
+    // must include a fully qualified path to the file.
+    // otherwise, cloudinary assumes the path is relative to where server.js resides.
+    // TO DO - turn Cloudinary call into middleware to keep from repeating code in multiple files.
+
+    /**
+     * 
+     * UnhandledPromiseRejectionWarning
+     * This means that a promise you called rejected, but there was no catch used to handle the error. Add a catch after the offending then to handle this properly.
+     */
+
+      const userId = req.params.id;
+      
+
+       await cloudinary.uploader.upload(
+      req.body.image
+      )
+      .then((uploadResult) => {
+        db.User
+        .findOneAndUpdate(
+          {_id: userId},
+          {$set: 
+            {
+              avatar: uploadResult.secure_url
+            }
+          })
+          .catch(dbErr => res.status(500).json(dbErr))
+          
+      })// I think the missing catch should go here.
+      .catch((findErr) => {
+        res.status(402).json({
+          message: 'User not found',
+          findErr
+        })
+      })
+      .then((saveResult) => {
+        res.status(200).json({
+        message: 'upload success',
+        saveResult,
+        // QUESTION: can we retrieve a thumbnail of the asset from cloudinary???
+      })
+      .catch((error) => {
+        res.status(501).json({
+          message: 'upload failure',
+          error,
+        });
+      })
+    })
+    .catch(ultimateError => res.json(ultimateError));
+    
+   
   }
 
 }
