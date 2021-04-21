@@ -1,83 +1,78 @@
-const db = require('../models/index');
+const db = require("../models/index");
 
 /** INDEX route - returns all Users */
 
-
 module.exports = {
-
-  findAll: function(req, res) {
-    db.User
-      .find()
-      .then(dbModel => {
-        return(res.json(dbModel))
-        })
-      .catch(err => res.status(422).json(err));
+  findAll: function (req, res) {
+    db.User.find()
+      .then((dbModel) => {
+        console.log(dbModel);
+        return res.json(dbModel);
+      })
+      .catch((err) => res.status(422).json(err));
   },
-/**
- * Returns user specified by the id parameter
- * @param {*} req 
- * @param {*} res 
- */
-  findById: function(req, res) {
-    db.User
-      .findById(req.params.id)
-      .populate('BankingInformation')
-      .populate('PaymentInformation')
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+  /**
+   * Returns user specified by the id parameter
+   * @param {*} req
+   * @param {*} res
+   */
+  findById: function (req, res) {
+    db.User.findById(req.params.id)
+      .populate("BankingInformation")
+      .populate("PaymentInformation")
+      .then((dbModel) => res.json(dbModel))
+      .catch((err) => res.status(422).json(err));
   },
 
-/**
- * Creates a new user record in the database.
- * @param {*} req 
- * @param {*} res 
- */
-  create: function(req, res) {
-
+  /**
+   * Creates a new user record in the database.
+   * @param {*} req
+   * @param {*} res
+   */
+  create: function (req, res) {
     /**
-     * The request may include the following 
+     * The request may include the following
      * UserProfile: {fName, LName, emailAddress, uid},
      * PetPreferences: {species, age, gender},
      * BankingDetails: {abaNumber, accountNumber},
      * PaymentDetails: {cardNumber, expirationDate, billingZipCode}
-     * 
+     *
      * First save the User, then call the controller to save the other elements in their respective tables.
      */
 
-    db.User
-      .create(req.body)
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+    db.User.create(req.body)
+      .then((dbModel) => res.json(dbModel))
+      .catch((err) => res.status(422).json(err));
   },
-  
+
   /**
    * Update user record in the database.
-   * @param {*} req 
-   * @param {*} res 
+   * @param {*} req
+   * @param {*} res
    */
-  update: function(req, res) {
-
-    db.User
-      .findOneAndUpdate({_id: req.params.id }, req.body)
-      .then(dbModel => {
-
-        console.log('dbmodel', dbModel)
-        return(res.json(dbModel))
-        })
-      .catch(err => res.status(422).json(err));
+  update: function (req, res) {
+    // { following: `${req.body.info.followerId}` }
+    console.log(req.body.info.followerId);
+    console.log(req.params.id);
+    db.User.findByIdAndUpdate(
+      { _id: req.params.id },
+      { $push: { following: req.body.info.followerId } }
+    )
+      .then((dbModel) => {
+        console.log(dbModel);
+        return res.json(dbModel);
+      })
+      .catch((err) => res.status(422).json(err));
   },
-/**
- * Remove the specified user from the database.
- * @param {*} req 
- * @param {*} res 
- */
-  remove: function(req, res) {
-
-    db.User
-      .findById({ _id: req.params.id })
-      .then(dbModel => dbModel.remove())
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
-  }
-
-}
+  /**
+   * Remove the specified user from the database.
+   * @param {*} req
+   * @param {*} res
+   */
+  remove: function (req, res) {
+    db.User.findById({ _id: req.params.id })
+      .then((dbModel) => dbModel.remove())
+      .then((dbModel) => res.json(dbModel))
+      .catch((err) => res.status(422).json(err));
+  },
+};

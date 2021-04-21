@@ -12,6 +12,7 @@ const userSeed = [
     email_address: "johnDoe@email.com",
     user_type: "Owner",
     status: "Active",
+    following: [],
   },
 ];
 
@@ -39,7 +40,7 @@ const petSeed = [
     owner_id: "198",
     classification: "exotic",
     status: "active",
-  }
+  },
 ];
 
 db.User.remove({})
