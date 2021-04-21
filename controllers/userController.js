@@ -1,7 +1,7 @@
 const db = require('../models/index');
 
 const firebaseAdmin = require("../firebase-server-side/firebase-server-side-utils"); 
-const admin = require("firebase-admin");
+const admin = require('firebase-admin');
 
 /** INDEX route - returns all Users */
 
@@ -99,7 +99,7 @@ console.log(`New user Object: ${newUser}`)
     })
     .catch((error) => {
       console.log('Error creating new user: ', error);
-      res.status(422).json(err);
+      res.status(422).json(error);
     });
 
   },

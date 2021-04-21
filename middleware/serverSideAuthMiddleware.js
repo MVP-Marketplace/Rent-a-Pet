@@ -1,49 +1,61 @@
 const User = require( '../models/user');
-const admin = require('./firebase-service');
-
-
-const getAuthToken = (req, res, next) => {
-  if (
-    req.headers.authorization &&
-    req.headers.authorization.split(' ')[0] === 'Bearer'
-  ) {
-    req.authToken = req.headers.authorization.split(' ')[1];
-  } else {
-    req.authToken = null;
-  }
-  next();
-};
+const {admin} = require('../firebase-server-side/firebase-server-side-utils');
 
 
 const checkIfAuthenticated = (req, res, next) => {
 
+  let uidFromToken ='';
   // step 1: retrieve the authorization token
- getAuthToken(req, res, async () => {
-    try {
-      const { authToken } = req;
 
-  // step 2: decode the token and confirm it is valid.
-      const userInfo = await admin
-        .auth()
-        .verifyIdToken(authToken);
-      req.authId = userInfo.uid;
+      if (
+        req.headers.authorization &&
+        req.headers.authorization.split(' ')[0] === 'Bearer'
+      ) {
+        req.authToken = req.headers.authorization.split(' ')[1];
+      } else {
+        req.authToken = null;
+      }
 
-      // step 3:  confirm the user associated with the token still exists in our database.
+      if (!req.authToken) {
+  
+        res.status(403).json({
+          message: "Unauthorized - Token is invalid or missing"
+        })
+      }
 
-      const confirmedUser = await User.find({
-        uid: req.authId
+  // step 2: decode the token and confirm it is valid.    
+      admin
+      .auth()
+      .verifyIdToken(req.authToken)
+      .then(decodedToken => {
+        // console.log('Decoded Token ', decodedToken);
+        uidFromToken = decodedToken.uid;
+      }).catch(authError => {
+        
+        res.status(403).json({message: 'Token Validation Error',
+        authError})
       })
-      .then(confirmedUser => res.json(confirmedUser))
-      .catch(error => res.status(401).json(error));
+  // step 3:  confirm the user associated with the token still exists in our database.
+       .then(uid => {
+         User.find(
+           { uid: uidFromToken}
+         )
+         .catch((dbError) => {
+           res.status(400).json({
+             message: 'User Not Found',
+             dbError
+           })
+         })
+         console.log('successfully located the user');
+         next();
+       })
+       .catch((error) => {
+         res.status(400).json({
+           message: 'Database error 2',
+           error
+         })
+       })
 
-      return next();
-
-    } catch (e) {
-      return res
-        .status(401)
-        .send({ error: 'You are not authorized to make this request' });
-    }
-  });
 };
 
-module.exports = { checkIfAuthenticated, getAuthToken }
+module.exports = { checkIfAuthenticated }
