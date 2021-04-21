@@ -2,7 +2,7 @@ const express = require("express");
 const session = require("express-session");
 
 const mongoose = require("mongoose");
-const routes = require('./routes/api/index');
+const routes = require('./server/routes/api/index');
 const fileUpload = require('express-fileupload');
 const cloudinary = require('cloudinary').v2;
 
