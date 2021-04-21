@@ -7,8 +7,18 @@ const petSchema = mongoose.Schema({
     species: {type: String, required: true},
     age: {type: Number},
     owner_id: {type: String, required: true},
-    classification: {type: String, required: true, default: "domestic"},
-    status: {type: String, required: true, default: "inactive"}
+    classification: {
+        type: String, 
+        required: true, 
+        enum: ['domestic','exotic'],
+        default: "domestic"
+    },
+    status: {
+        type: String, 
+        required: true, 
+        enum: ['active','inactive'],
+        default: "inactive"
+    }
 })
 
 module.exports = mongoose.model("Pet", petSchema);
