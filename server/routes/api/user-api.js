@@ -5,7 +5,7 @@ const userController = require("../../controllers/userController");
 const bankDetailsRouter = require("./bankDetails-api.js");
 const paymentMethodRouter = require("./paymentMethod-api.js");
 
-const isAuth = require('../../middleware/serverSideAuthMiddleware').checkIfAuthenticated;
+const isAuth = require('../../../middleware/serverSideAuthMiddleware').checkIfAuthenticated;
 //the final route is /api/user 
 
 /**

@@ -2,7 +2,7 @@ const { response } = require('express');
 const db = require('../models/index');
 cloudinary = require('cloudinary').v2;
 
-const firebaseAdmin = require("../firebase-server-side/firebase-server-side-utils"); 
+const firebaseAdmin = require("../../firebase-server-side/firebase-server-side-utils"); 
 const admin = require('firebase-admin');
 
 /** INDEX route - returns all Users */

@@ -1,4 +1,4 @@
-const User = require( '../models/user');
+const User = require( '../server/models/user');
 const {admin} = require('../firebase-server-side/firebase-server-side-utils');
 
 
