@@ -1,35 +1,32 @@
 const { response } = require('express');
 const db = require('../models/index');
 cloudinary = require('cloudinary').v2;
-
 const firebaseAdmin = require("../../firebase-server-side/firebase-server-side-utils"); 
 const admin = require('firebase-admin');
 
+
 /** INDEX route - returns all Users */
 
-
 module.exports = {
-
-  findAll: function(req, res) {
-    db.User
-      .find()
-      .then(dbModel => {
-        return(res.json(dbModel))
-        })
-      .catch(err => res.status(422).json(err));
+  findAll: function (req, res) {
+    db.User.find()
+      .then((dbModel) => {
+        console.log(dbModel);
+        return res.json(dbModel);
+      })
+      .catch((err) => res.status(422).json(err));
   },
-/**
- * Returns user specified by the id parameter
- * @param {*} req 
- * @param {*} res 
- */
-  findById: function(req, res) {
-    db.User
-      .findById(req.params.id)
-      .populate('BankingInformation')
-      .populate('PaymentInformation')
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+  /**
+   * Returns user specified by the id parameter
+   * @param {*} req
+   * @param {*} res
+   */
+  findById: function (req, res) {
+    db.User.findById(req.params.id)
+      .populate("BankingInformation")
+      .populate("PaymentInformation")
+      .then((dbModel) => res.json(dbModel))
+      .catch((err) => res.status(422).json(err));
   },
 
 /**
@@ -82,15 +79,17 @@ module.exports = {
     firebase_uid: newUid
 }
 console.log(`New user Object: ${newUser}`)
+
     /**
-     * The request may include the following 
+     * The request may include the following
      * UserProfile: {fName, LName, emailAddress, uid},
      * PetPreferences: {species, age, gender},
      * BankingDetails: {abaNumber, accountNumber},
      * PaymentDetails: {cardNumber, expirationDate, billingZipCode}
-     * 
+     *
      * First save the User, then call the controller to save the other elements in their respective tables.
      */
+
 
     db.User
       .create(newUser)
@@ -104,23 +103,27 @@ console.log(`New user Object: ${newUser}`)
       res.status(422).json(error);
     });
 
+
   },
-  
+
   /**
    * Update user record in the database.
-   * @param {*} req 
-   * @param {*} res 
+   * @param {*} req
+   * @param {*} res
    */
-  update: function(req, res) {
-
-    db.User
-      .findOneAndUpdate({_id: req.params.id }, req.body)
-      .then(dbModel => {
-
-        console.log('dbmodel', dbModel)
-        return(res.json(dbModel))
-        })
-      .catch(err => res.status(422).json(err));
+  update: function (req, res) {
+    // { following: `${req.body.info.followerId}` }
+    console.log(req.body.info.followerId);
+    console.log(req.params.id);
+    db.User.findByIdAndUpdate(
+      { _id: req.params.id },
+      { $push: { following: req.body.info.followerId } }
+    )
+      .then((dbModel) => {
+        console.log(dbModel);
+        return res.json(dbModel);
+      })
+      .catch((err) => res.status(422).json(err));
   },
 /**
  * Remove the specified user from the database.
@@ -191,3 +194,4 @@ console.log(`New user Object: ${newUser}`)
   }
 
 }
+
