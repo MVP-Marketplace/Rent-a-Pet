@@ -1,18 +1,29 @@
 const mongoose = require("mongoose");
 
-const userSchema = mongoose.Schema(
-  {
-    first_name: { type: String, required: true },
-    last_name: { type: String, required: true },
-    email_address: { type: String, required: true },
-    user_type: { type: String, required: true },
-    status: { type: String, required: true, default: "inactive" },
-    uid: { type: String, required: true },
-    following: [{ type: String }],
-  },
-  {
-    toJSON: { virtuals: true },
-  }
+const userSchema = mongoose.Schema({
+   
+        first_name: {type: String, required: true},
+        last_name: {type: String, required: true},
+        email_address: {type: String, required: true},
+        user_type: {
+                type: String, 
+                required: true,
+                enum: ['owner','renter','admin'],
+                default: 'renter'    
+            },
+        status: {
+            type: String, 
+            required: true, 
+            enum: ['active','inactive'],
+            default: "inactive"
+        },
+        firebase_uid: {type: String, required: true},
+        avatar: {type:String}
+},
+{
+    toJSON: { virtuals: true }
+}
+
 );
 
 // avoiding using child refrence because we don't know how many sets of banking

@@ -5,6 +5,7 @@ const userController = require("../../controllers/userController");
 const bankDetailsRouter = require("./bankDetails-api.js");
 const paymentMethodRouter = require("./paymentMethod-api.js");
 
+const isAuth = require('../../../middleware/serverSideAuthMiddleware').checkIfAuthenticated;
 //the final route is /api/user 
 
 /**
@@ -27,9 +28,10 @@ router
 
 router
 .route("/:id")
-.get(userController.findById)
+.get(isAuth, userController.findById)
 .put(userController.update)
-.delete(userController.remove);
+.delete(userController.remove)
+.post(userController.uploadAvatar);
 
 
 module.exports = router;

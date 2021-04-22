@@ -1,13 +1,26 @@
 const express = require("express");
 const session = require("express-session");
-
 const mongoose = require("mongoose");
-const routes = require("./server/routes/api/index");
+const routes = require('./server/routes/api/index');
+const fileUpload = require('express-fileupload');
+const cloudinary = require('cloudinary').v2;
+
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
 require("dotenv").config();
+
+/**
+ * cloudinary configuration 
+ * for media uploads
+ */
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
@@ -33,6 +46,14 @@ mongoose
   .catch((err) =>
     console.log(`Could not Connected to db ${process.env.DB_CONNECTION} `, err)
   );
+
+//File uploadedr 
+app.use(
+  fileUpload({
+    useTempFiles: true,
+    tempFileDir: '/tmp/images'
+  })
+);
 
 // Start the API
 app.listen(PORT, function () {

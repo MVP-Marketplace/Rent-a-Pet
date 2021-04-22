@@ -12,7 +12,12 @@ const BankingDetailSchema = mongoose.Schema({
     routing_number: {type: String, required: true},
     bank_name: {type: String, required: true},
     account_number: {type: String, required: true},
-    status: {type: String, required: true, default: "inactive"}
+    status: {
+        type: String, 
+        required: true, 
+        enum: ['active','inactive'],
+        default: "inactive"
+    }
 })
 
 module.exports = mongoose.model("BankDetail", BankingDetailSchema);

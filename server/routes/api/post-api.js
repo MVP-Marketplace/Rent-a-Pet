@@ -12,6 +12,7 @@ router
   .route("/:id")
   .get(postController.findById)
   .put(postController.update)
-  .delete(postController.remove);
+  .delete(postController.remove)
+  .post(postController.uploadMedia);
 
 module.exports = router;
