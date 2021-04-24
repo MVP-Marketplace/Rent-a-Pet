@@ -5,9 +5,12 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 //the final route is /api/stripe-test
 /***
+ * REFERENCE:  https://github.com/stripe-samples/connect-onboarding-for-express
+ * 
  * TO-DO
- * Active the webhook endpoints to monitor activity in our Stripe accounts
+ * 1.  Active the webhook endpoints to monitor activity in our Stripe accounts
  * or any connected accounts (e.g. monitor when payments go into the accounts.)
+ * 2.  WE NEED TO SPECIFY THESE URLs to make sure the user returns cleanly to our application after the sign up is complete.
  */
 
 /**
@@ -79,7 +82,7 @@ function generateAccountLink(accountID, origin) {
     return stripe.accountLinks.create({
       type: "account_onboarding",
       account: accountID,
-      //  WE NEED TO SPECIFY THESE URLs to make sure the user returns cleanly to our application after the sign up is complete.
+      
       refresh_url: `${origin}/onboard-user/refresh`,
       return_url: `${origin}/success.html`,
     }).then((link) => link.url);
