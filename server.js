@@ -4,7 +4,8 @@ const mongoose = require("mongoose");
 const routes = require('./server/routes/api/index');
 const fileUpload = require('express-fileupload');
 const cloudinary = require('cloudinary').v2;
-
+const bodyParser = require("body-parser");
+const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -24,7 +25,38 @@ cloudinary.config({
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+
+app.use(cors({
+  origin: 'http://localhost:3000', // ASSUMING FOR DEV we're running front end locally.
+  credentials: true
+}));
+// app.use(express.json());
+
+/** 
+ * replaced above since we don't want to use JSON parser on 
+ * webhook
+ */
+app.use((req, res, next) => {
+  if (req.originalUrl === '/webhook') {
+    next();
+  } else {
+    express.json()(req, res, next);
+  }
+});
+
+/**
+ * Added for Stripe server-side support
+ */
+
+app.use(session({
+  secret: process.env.SECRET_STRING,
+  resave: false,
+  saveUninitialized: true,
+}));
+/** QUESTION:  How do we tell express to use JSON parser on non-webhook routes? */
+
+
+
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));

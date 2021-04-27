@@ -18,7 +18,8 @@ const userSchema = mongoose.Schema({
             default: "inactive"
         },
         firebase_uid: {type: String, required: true},
-        avatar: {type:String}
+        avatar: {type:String},
+        stripe_account_id: {type: String}
 },
 {
     toJSON: { virtuals: true }
@@ -26,7 +27,7 @@ const userSchema = mongoose.Schema({
 
 );
 
-// avoiding using child refrence because we don't know how many sets of banking
+// avoiding using child reference because we don't know how many sets of banking
 // details or payment methods a user may add. [no unbounded arrays in our database document.]
 
 /**
