@@ -63,7 +63,7 @@ export default function SignUp() {
       <div className="flex w-3/5">
         <img
           src="/images/iphone-with-petfile.jpg"
-          alt="iPhone with Instagram app"
+          alt="iPhone with OnlyPaws app"
         />
       </div>
       <div className="flex flex-col w-2/5">
