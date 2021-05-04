@@ -15,7 +15,8 @@ module.exports = {
   },
 
   create: function (req, res) {
-    db.PostComment.create(req.body)
+    console.log(req.body.info);
+    db.PostComment.create(req.body.info)
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
