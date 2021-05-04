@@ -13,7 +13,7 @@ const userFeedRoutes = require("./userFeed-api");
 const userFollowerRoutes = require("./userFollower-api");
 const bankDetailsRoutes = require("./bankDetails-api");
 const paymentMethodRoutes = require("./paymentMethod-api");
-
+const image = require("./image-api");
 
 //user routes /api/user
 
@@ -26,7 +26,7 @@ router.use("/userFeed", userFeedRoutes);
 router.use("/userFollower", userFollowerRoutes);
 router.use("/bankdetails", bankDetailsRoutes);
 router.use("/paymentmethod", paymentMethodRoutes);
-
+router.use("/image", image);
 
 // If no API routes are hit, send the React app
 router.use(function (req, res) {
