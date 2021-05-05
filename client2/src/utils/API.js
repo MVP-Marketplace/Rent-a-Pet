@@ -40,4 +40,9 @@ export default {
     let user_id = data.user_id;
     return axios.put(`/api/post/${id}`, { user_id, action: "remove" });
   },
+  //Get comments
+  getComments: function (id) {
+    // console.log(id);
+    return axios.get(`/api/postcomment/${id}`);
+  },
 };

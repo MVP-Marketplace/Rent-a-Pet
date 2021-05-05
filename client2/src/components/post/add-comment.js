@@ -10,7 +10,7 @@ export default function AddComment({
   setComments,
   commentInput,
 }) {
-  // console.log(UserContext);
+  // console.log(comments);
   const [comment, setComment] = useState("");
   const { firebase, FieldValue } = useContext(FirebaseContext);
   const {
@@ -24,22 +24,14 @@ export default function AddComment({
     // console.log(comment, docId, displayName, userId);
 
     API.createComment({
-      // post_id: docId,
+      post_id: docId,
       username: displayName,
       user_id: userId,
       comment: comment,
-    });
-    // .then((res) => console.log(res))
-    // .catch((err) => console.log(err));
-    //   setComment("");
-
-    //   return firebase
-    //     .firestore()
-    //     .collection("photos")
-    //     .doc(docId)
-    //     .update({
-    //       comments: FieldValue.arrayUnion({ displayName, comment }),
-    //     });
+    })
+      .then((res) => setComment(""))
+      .catch((err) => console.log(err));
+    // setComment("");
   };
 
   return (

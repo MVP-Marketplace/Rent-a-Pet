@@ -8,6 +8,7 @@ const postSchema = mongoose.Schema(
     media_type: { type: String, required: true },
     caption: { type: String, required: false },
     like: [{ type: String, required: false }],
+    // comment: [],
   },
   { timestamps: true },
   { toJSON: { virtuals: true }, toObject: { virtuals: true } }

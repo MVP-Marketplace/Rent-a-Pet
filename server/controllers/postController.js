@@ -14,8 +14,11 @@ module.exports = {
   },
   findById: function (req, res) {
     db.Post.findById(req.params.id)
-      .populate("PostComment")
-      .then((dbModel) => res.json(dbModel))
+      .populate("comments")
+      .then((dbModel) => {
+        console.log(typeof dbModel);
+        res.json(dbModel);
+      })
       .catch((err) => res.status(422).json(err));
   },
   create: async function (req, res) {

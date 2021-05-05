@@ -5,7 +5,7 @@ const postController = require("../../controllers/postController");
 const postCommentRouter = require("./postComment-api");
 
 // Final route /api/post
-router.use("/:postId/postcomment", postCommentRouter);
+router.use("/:post_id/postcomment", postCommentRouter);
 
 router.route("/").get(postController.findAll).post(postController.create);
 

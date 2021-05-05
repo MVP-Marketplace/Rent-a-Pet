@@ -9,13 +9,14 @@ module.exports = {
       .catch((err) => res.status(422).json(err));
   },
   findById: function (req, res) {
-    db.PostComment.findById(req.params.id)
-      .then((dbModel) => res.json(dbModel))
+    db.PostComment.find({ post_id: req.params.id })
+      .then((dbModel) => {
+        res.json(dbModel);
+      })
       .catch((err) => res.status(422).json(err));
   },
 
   create: function (req, res) {
-    console.log(req.body.info);
     db.PostComment.create(req.body.info)
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));

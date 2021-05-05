@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import Header from "./header";
 // import Image from "./image";
@@ -6,11 +6,31 @@ import { Image, Video } from "cloudinary-react";
 import Actions from "./actions";
 import Footer from "./footer";
 import Comments from "./comments";
+// import API from "./../../utils/API";
 
 export default function Post(content) {
   let post = content.post;
   let likedPic = post.like.includes(post.user_id);
   const commentInput = useRef(null);
+  // const [comments, setComments] = useState();
+
+  // //Get comment for each post
+  // const loadComments = async () => {
+  //   try {
+  //     await API.getComments(post._id)
+  //       .then((res) => {
+  //         setComments(res.data);
+  //       })
+  //       .catch((err) => console.log(err));
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
+
+  // //Retrieve comments upon a change
+  // useEffect(() => {
+  //   loadComments();
+  // }, []);
 
   const handleFocus = () => commentInput.current.focus();
   return (
@@ -23,8 +43,6 @@ export default function Post(content) {
         // width="300"
         crop="scale"
       />
-      {/* // <Image src={post.media} caption={post.caption} /> */}
-
       <Actions
         docId={post._id}
         totalLikes={post.like.length}
@@ -32,12 +50,7 @@ export default function Post(content) {
         // handleFocus={handleFocus}
       />
       <Footer caption={post.caption} username={post.username} />
-      <Comments
-        docId={post._id}
-        // comments={content.comments}
-        // posted={content.dateCreated}
-        // commentInput={commentInput}
-      />
+      <Comments docId={post._id} commentInput={commentInput} />
     </div>
   );
 }
