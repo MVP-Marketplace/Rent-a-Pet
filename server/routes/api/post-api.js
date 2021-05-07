@@ -2,7 +2,10 @@ const router = require("express").Router();
 
 const postController = require("../../controllers/postController");
 
+const postCommentRouter = require("./postComment-api");
+
 // Final route /api/post
+router.use("/:post_id/postcomment", postCommentRouter);
 
 router.route("/").get(postController.findAll).post(postController.create);
 

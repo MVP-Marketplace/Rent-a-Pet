@@ -14,19 +14,21 @@ const userFollowerRoutes = require("./userFollower-api");
 const bankDetailsRoutes = require("./bankDetails-api");
 const paymentMethodRoutes = require("./paymentMethod-api");
 const stripeRoutes = require("./stripe-api");
+const image = require("./image-api");
 
 //user routes /api/user
 
 router.use("/user", userRoutes);
 router.use("/pet", petRoutes);
 router.use("/post", postRoutes);
-router.use("/postComment", postCommentRoutes);
-router.use("/postLike", postLikeRoutes);
-router.use("/userFeed", userFeedRoutes);
-router.use("/userFollower", userFollowerRoutes);
+router.use("/postcomment", postCommentRoutes);
+router.use("/postlike", postLikeRoutes);
+router.use("/userfeed", userFeedRoutes);
+router.use("/userfollower", userFollowerRoutes);
 router.use("/bankdetails", bankDetailsRoutes);
 router.use("/paymentmethod", paymentMethodRoutes);
 router.use("/stripe-test", stripeRoutes);
+router.use("/image", image);
 
 // If no API routes are hit, send the React app
 router.use(function (req, res) {

@@ -2,15 +2,15 @@ import { useState, useContext, useEffect } from "react";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import FirebaseContext from "../context/firebase";
-import * as ROUTES from '../constants/routes'
-import { doesUsernameExist } from '../services/firebase'
+import * as ROUTES from "../constants/routes";
+import { doesUsernameExist } from "../services/firebase";
 
 export default function SignUp() {
   const history = useHistory();
   const { firebase } = useContext(FirebaseContext);
 
-  const [username, setUsername] = useState('')
-  const [fullName, setFullName] = useState('')
+  const [username, setUsername] = useState("");
+  const [fullName, setFullName] = useState("");
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
 
@@ -18,41 +18,40 @@ export default function SignUp() {
   const isInvalid = password === "" || emailAddress === "";
 
   const handleSignUp = async (event) => {
-      event.preventDefault();
+    event.preventDefault();
 
-      const usernameExists = await doesUsernameExist(username);
-      if (!usernameExists.length) {
-        try {
-          const createdUserResult = await firebase
+    const usernameExists = await doesUsernameExist(username);
+    if (!usernameExists.length) {
+      try {
+        const createdUserResult = await firebase
           .auth()
           .createUserWithEmailAndPassword(emailAddress, password);
 
-          await createdUserResult.user.updateProfile({
-            displayName: username
-          });
+        await createdUserResult.user.updateProfile({
+          displayName: username,
+        });
 
-          await firebase.firestore().collection('users').add({
-            userId: createdUserResult.user.uid,
-            username: username.toLowerCase(),
-            fullName,
-            emailAddress: emailAddress.toLowerCase(),
-            following: [],
-            dateCreated: Date.now()
-          });
+        await firebase.firestore().collection("users").add({
+          userId: createdUserResult.user.uid,
+          username: username.toLowerCase(),
+          fullName,
+          emailAddress: emailAddress.toLowerCase(),
+          following: [],
+          dateCreated: Date.now(),
+        });
 
-          history.push(ROUTES.DASHBOARD)
-
-        } catch (error) {
-          setFullName('');
-          setEmailAddress('');
-          setPassword('');
-          setError('error.message');
-        }
-      } else {
-        setUsername('');
-        setError('That username is already taken, please try another.')
+        history.push(ROUTES.DASHBOARD);
+      } catch (error) {
+        setFullName("");
+        setEmailAddress("");
+        setPassword("");
+        setError("error.message");
       }
-  }; 
+    } else {
+      setUsername("");
+      setError("That username is already taken, please try another.");
+    }
+  };
 
   useEffect(() => {
     document.title = "Sign Up - RaP";
@@ -121,9 +120,10 @@ export default function SignUp() {
           </form>
         </div>
         <div className="flex justify-center items-center flex-col w-full bg-white p-4 border border-gray-primary">
-          <p className="text-sm">Have an account? {' '}
+          <p className="text-sm">
+            Have an account?{" "}
             <Link to={ROUTES.LOGIN} className="font-bold text-blue-medium">
-                Login
+              Login
             </Link>
           </p>
         </div>
