@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import FirebaseContext from "../context/firebase";
-import * as ROUTES from '../constants/routes'
+import * as ROUTES from "../constants/routes";
 
 export default function Login() {
   const history = useHistory();
@@ -15,31 +15,31 @@ export default function Login() {
   const isInvalid = password === "" || emailAddress === "";
 
   const handleLogin = async (event) => {
-      event.preventDefault();
+    event.preventDefault();
 
-      try {
-        await firebase.auth().signInWithEmailAndPassword(emailAddress, password);
-        history.push(ROUTES.DASHBOARD)
-      } catch(error) {
-            setEmailAddress('');
-            setPassword('');
-            setError(error.message);
-      }
-  }; 
+    try {
+      await firebase.auth().signInWithEmailAndPassword(emailAddress, password);
+      history.push(ROUTES.DASHBOARD);
+    } catch (error) {
+      setEmailAddress("");
+      setPassword("");
+      setError(error.message);
+    }
+  };
 
   useEffect(() => {
-    document.title = "Login - RaP";
+    document.title = "Login - Critter";
   }, []);
 
   return (
-    <div className="container flex mx-auto max-w-screen-md items-center h-screen">
-      <div className="flex w-3/5">
+    <div className="container flex flex-col lg:flex-row mx-auto max-w-screen-md items-center h-screen px-4 lg:px-0">
+      <div className="hidden lg:flex w-5/5 lg:w-3/5">
         <img
           src="/images/iphone-with-petfile.jpg"
-          alt="iPhone with Instagram app"
+          alt="iPhone with OnlyPaws app"
         />
       </div>
-      <div className="flex flex-col w-2/5">
+      <div className="flex flex-col w-full lg:w-2/5 justify-center h-full max-w-md m-auto">
         <div className="flex flex-col items-center bg-white p-4 border border-gray-primary mb-4">
           <h1 className="flex justify-center w-full">
             <img
@@ -70,17 +70,21 @@ export default function Login() {
             <button
               disabled={isInvalid}
               type="submit"
-              className={`bg-blue-medium text-white w-full rounded h-8 font-bold
+              className={`bg-green-primary text-white hover:bg-green-secondary hover:text-black-light w-full rounded h-8 font-bold
                 ${isInvalid && "opacity-50"}`}
             >
-              Log In
+              Login
             </button>
           </form>
         </div>
         <div className="flex justify-center items-center flex-col w-full bg-white p-4 border border-gray-primary">
-          <p className="text-sm">Don't have an account? {' '}
-            <Link to={ROUTES.SIGN_UP} className="font-bold text-blue-medium">
-                Sign Up
+          <p className="text-sm">
+            Don't have an account?{" "}
+            <Link
+              to={ROUTES.SIGN_UP}
+              className="font-bold text-green-primary hover:text-green-secondary"
+            >
+              Sign Up
             </Link>
           </p>
         </div>

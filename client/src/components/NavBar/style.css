@@ -1,0 +1,37 @@
+.profile-menu {
+  background-color: transparent !important;
+  border-color: transparent !important;
+  padding: 8px !important;
+}
+
+.dropdown-toggle::after {
+  content: none !important;
+}
+
+.dropdown-menu {
+  width: 575px !important;
+  height: 240px !important;
+  top: 56px;
+  right: -100px;
+  text-align: right !important;
+  border-left: 1px;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  border: none !important;
+}
+
+.dropdown-item {
+  height: 80px !important;
+  font-size: 24px;
+  font-weight: 700 !important;
+  padding-top: 20px !important;
+}
+
+.loginBtn {
+  margin-right: 100px;
+  background-color: transparent !important;
+  border: 2px solid #645e9d !important;
+  color: #645e9d !important;
+  font-weight: 700 !important;
+  padding: 5px 20px !important;
+}

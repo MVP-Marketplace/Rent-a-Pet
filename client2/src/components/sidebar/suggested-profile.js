@@ -18,7 +18,7 @@ export default function SuggestedProfile({
 
   async function handleFollowUser() {
     console.log(profileDocId, username, profileId, userId, loggedInUserDocId);
-    //Add follower using two ids
+    // Add follower using two ids
     // API.addFollower({ followerId: profileId, userId: userId })
     //   .then((res) => console.log(res))
     //   .catch((err) => console.log(err));

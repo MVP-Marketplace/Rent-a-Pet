@@ -13,10 +13,32 @@ module.exports = {
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
-  create: function (req, res) {
-    db.PostLike.create(req.body)
-      .then((dbModel) => res.json(dbModel))
+  create: async function (req, res) {
+    // console.log(req.body.data);
+    let postId = [];
+    // console.log(user_id);
+
+    // db.PostLike.find({})
+    //   .populate("user_id")
+    //   .exec(function (err, user_id) {
+    //     if (err) return console.log(err);
+    //     console.log("hi", user_id);
+    //   });
+    await db.PostLike.create(req.body.data)
+      .then((dbModel) => {
+        // res.json(dbModel))
+
+        postId = dbModel._id.toString();
+        console.log(typeof postId);
+      })
       .catch((err) => res.status(422).json(err));
+    console.log(postId);
+    db.Post.findByIdAndUpdate(
+      { _id: req.body.data.post_id },
+      { $set: { like: postId } }
+    )
+      .then((dbModel) => console.log(dbModel))
+      .catch((err) => console.log(err));
   },
   update: function (req, res) {
     db.PostLike.findOneAndUpdate({ _id: req.params.id }, req.body)
