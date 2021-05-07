@@ -19,7 +19,9 @@ const userSchema = mongoose.Schema({
         },
         firebase_uid: {type: String, required: true},
         avatar: {type:String},
-        stripe_account_id: {type: String}
+        stripe_account_id: {type: String},
+        username: { type: String, required: true },
+        display_name: { type: String }
 },
 {
     toJSON: { virtuals: true }
