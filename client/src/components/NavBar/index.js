@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Navbar, Nav, Col, Button, Dropdown } from "react-bootstrap";
 import paw from "./../../assets/img/paw.svg";
 import chat from "./../../assets/img/chat.svg";
@@ -12,7 +12,7 @@ export default function NavBar() {
   //Created a demo for login and logout
   //Todo
   //Make mobile friendly
-  console.log(window.location.href);
+  // console.log(window.location.href);
   return (
     <Navbar
       style={{
@@ -21,7 +21,7 @@ export default function NavBar() {
       }}
     >
       <Navbar.Brand href="/" style={{ paddingLeft: 100 }}>
-        <img src={paw} />
+        <img src={paw} alt="Animal paw" />
       </Navbar.Brand>
       <Col className="mr-auto" style={{ textAlign: "right" }}>
         {window.location.href === "http://localhost:3000/" ? (
@@ -34,26 +34,34 @@ export default function NavBar() {
             style={{ justifyContent: "flex-end", paddingRight: 100 }}
           >
             <Nav.Link href="#home" style={{ paddingRight: 50 }}>
-              <img src={post} />
+              <img src={post} alt="Post button" />
             </Nav.Link>
             <Nav.Link href="#features" style={{ paddingRight: 50 }}>
-              <img src={chat} />
+              <img src={chat} alt="Chat bubble" />
             </Nav.Link>
             <Dropdown>
               <Dropdown.Toggle className="profile-menu" id="dropdown-basic">
-                <img src={profileIcon} />
+                <img src={profileIcon} alt="Profile icon" />
               </Dropdown.Toggle>
               <Dropdown.Menu>
                 <Dropdown.Item href="#/action-1">
-                  <img src={profileIcon} style={{ paddingRight: 12 }} />
+                  <img
+                    src={profileIcon}
+                    style={{ paddingRight: 12 }}
+                    alt="Profile icon"
+                  />
                   My Profile
                 </Dropdown.Item>
                 <Dropdown.Item href="#/action-2">
-                  <img src={statement} style={{ paddingRight: 12 }} />
+                  <img
+                    src={statement}
+                    style={{ paddingRight: 12 }}
+                    alt="Money graph"
+                  />
                   Statements
                 </Dropdown.Item>
                 <Dropdown.Item href="#/action-3">
-                  <img src={settings} style={{ paddingRight: 12 }} />
+                  <img src={settings} style={{ paddingRight: 12 }} alt="Gear" />
                   Settings
                 </Dropdown.Item>
               </Dropdown.Menu>
