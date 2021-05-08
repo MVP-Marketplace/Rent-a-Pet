@@ -10,6 +10,8 @@ const descriptionSchema = mongoose.Schema({
         enum: ['active','inactive'],
         default: "active"
     }
-})
+},
+{ timestamps: true }
+)
 
 module.exports = mongoose.model("Description", descriptionSchema);

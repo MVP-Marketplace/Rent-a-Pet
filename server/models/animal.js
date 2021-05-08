@@ -10,6 +10,8 @@ const animalSchema = mongoose.Schema({
         enum: ['active','inactive'],
         default: "active"
     }
-})
+},
+{ timestamps: true },
+)
 
 module.exports = mongoose.model("Animal", animalSchema);
