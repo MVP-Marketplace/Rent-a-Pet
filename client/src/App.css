@@ -36,3 +36,8 @@
     transform: rotate(360deg);
   }
 }
+
+@font-face {
+  font-family: "Jost";
+  src: url("./assets/font/Jost/Jost-VariableFont_wght.ttf") format("truetype");
+}
