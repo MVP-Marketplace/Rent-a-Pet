@@ -1,5 +1,6 @@
 import React from "react";
 // import { Row, Col, Button } from "react-bootstrap";
+import SignUpModal from "./../SignUpModal";
 import Logo from "./../../assets/img/Logo.svg";
 import "./style.css";
 
@@ -14,7 +15,8 @@ export default function SignUp() {
       </div>
       <div>WE ARE EXCITED TO GET TO KNOW YOU!</div>
       <div>Choose a sign up option:</div>
-      <button className="sign-up-btn">Sign Up with Email</button>
+      <SignUpModal />
+      {/* <button className="sign-up-btn">Sign Up with Email</button> */}
       <button className="sign-up-btn">Sign Up with Twitter</button>
       <button className="sign-up-btn">Sign Up with Google</button>
       <button className="sign-up-btn">Sign Up with Apple</button>
