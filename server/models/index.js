@@ -8,4 +8,8 @@ module.exports = {
   UserFollower: require("./userFollower"),
   PaymentMethod: require("./paymentMethod"),
   BankDetails: require("./bankDetails"),
+  Description: require("./description"),
+  Animal: require("./animal"),
+  Organization: require("./organization"),
+  Characteristic: require("./characteristic"),
 };

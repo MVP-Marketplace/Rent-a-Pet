@@ -10,7 +10,7 @@ const petSchema = mongoose.Schema({
     classification: {
         type: String, 
         required: true, 
-        enum: ['domestic','exotic'],
+        enum: ['domestic','exotic', 'farm'],
         default: "domestic"
     },
     status: {
