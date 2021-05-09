@@ -1,5 +1,6 @@
 import React from "react";
-import { Navbar, Nav, Col, Button, Dropdown } from "react-bootstrap";
+import { Navbar, Nav, Col, Dropdown } from "react-bootstrap";
+import LoginModal from "./../LoginModal";
 import paw from "./../../assets/img/paw.svg";
 import chat from "./../../assets/img/chat.svg";
 import profileIcon from "./../../assets/img/profileIcon.svg";
@@ -25,9 +26,7 @@ export default function NavBar() {
       </Navbar.Brand>
       <Col className="mr-auto" style={{ textAlign: "right" }}>
         {window.location.href === "http://localhost:3000/" ? (
-          <Button href="#hi" className="loginBtn">
-            Log In
-          </Button>
+          <LoginModal position="nav" />
         ) : (
           <Nav
             className="mr-auto"

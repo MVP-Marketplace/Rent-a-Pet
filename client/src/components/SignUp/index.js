@@ -1,6 +1,7 @@
 import React from "react";
 // import { Row, Col, Button } from "react-bootstrap";
 import SignUpModal from "./../SignUpModal";
+import LoginModal from "./../LoginModal";
 import Logo from "./../../assets/img/Logo.svg";
 import "./style.css";
 
@@ -20,9 +21,7 @@ export default function SignUp() {
       <button className="sign-up-btn">Sign Up with Twitter</button>
       <button className="sign-up-btn">Sign Up with Google</button>
       <button className="sign-up-btn">Sign Up with Apple</button>
-      <div>
-        Already have an account?<a href="/login">Log in</a>
-      </div>
+      <LoginModal position="signUp" />
       <div>
         By signing up, you agree to our Privacy Policy and Terms of Service.
       </div>
