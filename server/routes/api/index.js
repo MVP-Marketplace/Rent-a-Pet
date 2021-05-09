@@ -16,6 +16,11 @@ const paymentMethodRoutes = require("./paymentMethod-api");
 const stripeRoutes = require("./stripe-api");
 const image = require("./image-api");
 
+const animalRoutes = require("./animal-api");
+const characteristicRoutes = require("./characteristic-api");
+const descriptionRoutes = require("./description-api");
+const organizationRoutes = require("./organization-api");
+
 //user routes /api/user
 
 router.use("/user", userRoutes);
@@ -29,6 +34,11 @@ router.use("/bankdetails", bankDetailsRoutes);
 router.use("/paymentmethod", paymentMethodRoutes);
 router.use("/stripe-test", stripeRoutes);
 router.use("/image", image);
+
+router.use("/animal", animalRoutes);
+router.use("/characteristic", characteristicRoutes);
+router.use("/description", descriptionRoutes);
+router.use("/organization", organizationRoutes);
 
 // If no API routes are hit, send the React app
 router.use(function (req, res) {

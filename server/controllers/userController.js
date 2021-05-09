@@ -40,6 +40,7 @@ module.exports = {
     var first_name = req.body.first_name;
     var last_name = req.body.last_name;
     var user_type = req.body.user_type;
+    var displayName = `${first_name} ${last_name}`
 
     const newFirebaseUserRecord = {
       email: email_address,
@@ -69,6 +70,8 @@ module.exports = {
           user_type: user_type,
           status: "active",
           firebase_uid: newUid,
+          username: username,
+          display_name: displayName
         };
         console.log(`New user Object: ${newUser}`);
 
