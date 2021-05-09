@@ -6,7 +6,6 @@ import SunsetKitty from "./../assets/img/sunsetKitty.png";
 import Lion from "./../assets/img/lion.svg";
 
 export default function Home() {
-  console.log(SignUp);
   // console.log(SunsetKitty);
   return (
     <>
