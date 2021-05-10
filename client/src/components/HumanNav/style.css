@@ -1,0 +1,6 @@
+.nav-link {
+  transition: none !important;
+}
+.nav-item .active {
+  border-bottom: 3px solid #5998a6 !important;
+}

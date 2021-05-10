@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 // import SignUp from "./components/SignUp";
 // import Login from "./components/Login";
 import Home from "./pages/homepage";
+import HumanProfile from "./pages/humanProfile";
 // import { AuthProvider } from "./Auth";
 // import PrivateRoute from "./components/PrivateRoute";
 import "./index.css";
@@ -15,6 +16,7 @@ const App = () => {
     <Router>
       <div>
         <Route exact path="/" component={Home} />
+        <Route exact path="/profile" component={HumanProfile} />
       </div>
     </Router>
   );
