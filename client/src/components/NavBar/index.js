@@ -1,6 +1,7 @@
 import React from "react";
 import { Navbar, Nav, Col, Dropdown } from "react-bootstrap";
 import LoginModal from "./../LoginModal";
+import CreatePost from "./../PostModal";
 import paw from "./../../assets/img/paw.svg";
 import chat from "./../../assets/img/chat.svg";
 import profileIcon from "./../../assets/img/profileIcon.svg";
@@ -32,9 +33,10 @@ export default function NavBar() {
             className="mr-auto"
             style={{ justifyContent: "flex-end", paddingRight: 100 }}
           >
-            <Nav.Link href="#home" style={{ paddingRight: 50 }}>
+            {/* <Nav.Link href="#home" style={{ paddingRight: 50 }}>
               <img src={post} alt="Post button" />
-            </Nav.Link>
+            </Nav.Link> */}
+            <CreatePost />
             <Nav.Link href="#features" style={{ paddingRight: 50 }}>
               <img src={chat} alt="Chat bubble" />
             </Nav.Link>
