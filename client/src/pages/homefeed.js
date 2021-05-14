@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import NavBar from "../components/NavBar";
 import PostCard from "../components/PostCard";
-import DiscoverCard from "../components/DiscoverCard";
+import Suggested from "../components/Suggested";
 
 export default function HomeFeed() {
   return (
@@ -13,6 +13,9 @@ export default function HomeFeed() {
           <Col lg={6}>
             {" "}
             <PostCard />
+          </Col>
+          <Col lg={3}>
+            <Suggested />
           </Col>
         </Row>
       </Container>
