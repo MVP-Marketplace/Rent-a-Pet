@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 // import Login from "./components/Login";
 import Home from "./pages/homepage";
 import HumanProfile from "./pages/humanProfile";
+import FeedPage from "./pages/feedpage";
 // import { AuthProvider } from "./Auth";
 // import PrivateRoute from "./components/PrivateRoute";
 import "./index.css";
@@ -15,8 +16,9 @@ const App = () => {
   return (
     <Router>
       <div>
-        <Route exact path="/" component={Home} />
+        <Route exact path="/feed" component={FeedPage} />
         <Route exact path="/profile" component={HumanProfile} />
+        <Route exact path="/" component={Home} />
       </div>
     </Router>
   );
