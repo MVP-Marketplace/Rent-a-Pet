@@ -1,9 +1,10 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import NavBar from "./../components/NavBar";
-import PostCard from "./../components/PostCard";
+import NavBar from "../components/NavBar";
+import PostCard from "../components/PostCard";
+import DiscoverCard from "../components/DiscoverCard";
 
-export default function FeedPage() {
+export default function HomeFeed() {
   return (
     <>
       <NavBar />
