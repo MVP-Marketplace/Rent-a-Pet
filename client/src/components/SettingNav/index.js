@@ -4,7 +4,9 @@ import gear from "./../../assets/img/settings.svg";
 import follow from "./../../assets/img/followBtn.svg";
 import "./style.css";
 
-export default function SettingNav() {
+export default function SettingNav(props) {
+  // console.log(props);
+
   return (
     <>
       <div style={{ display: "flex", justifyContent: "center" }}>
@@ -13,10 +15,14 @@ export default function SettingNav() {
       </div>
       <Nav defaultActiveKey="1" className="flex-column">
         <Nav.Item>
-          <Nav.Link eventKey="1">Account</Nav.Link>
+          <Nav.Link eventKey="1" onClick={(e) => props.handleSettingChange(e)}>
+            Account
+          </Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link eventKey="2">My Profile</Nav.Link>
+          <Nav.Link eventKey="2" onClick={(e) => props.handleSettingChange(e)}>
+            My Profile
+          </Nav.Link>
         </Nav.Item>
         <Nav.Item>
           <Nav
