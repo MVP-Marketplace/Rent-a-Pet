@@ -8,6 +8,7 @@ import Home from "./pages/homepage";
 import HumanProfile from "./pages/humanProfile";
 import HomeFeed from "./pages/homefeed";
 import DiscoverFeed from "./pages/discoverfeed";
+import Setting from "./pages/setting";
 // import { AuthProvider } from "./Auth";
 // import PrivateRoute from "./components/PrivateRoute";
 import "./index.css";
@@ -17,6 +18,7 @@ const App = () => {
   return (
     <Router>
       <div>
+        <Route exact path="/setting" component={Setting} />
         <Route exact path="/feed" component={HomeFeed} />
         <Route exact path="/discover" component={DiscoverFeed} />
         <Route exact path="/profile" component={HumanProfile} />

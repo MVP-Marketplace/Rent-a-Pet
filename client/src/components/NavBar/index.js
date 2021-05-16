@@ -61,7 +61,7 @@ export default function NavBar() {
                   />
                   Statements
                 </Dropdown.Item>
-                <Dropdown.Item href="#/action-3">
+                <Dropdown.Item href="/setting">
                   <img src={settings} style={{ paddingRight: 12 }} alt="Gear" />
                   Settings
                 </Dropdown.Item>
