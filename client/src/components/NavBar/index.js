@@ -45,7 +45,7 @@ export default function NavBar() {
                 <img src={profileIcon} alt="Profile icon" />
               </Dropdown.Toggle>
               <Dropdown.Menu>
-                <Dropdown.Item href="#/action-1">
+                <Dropdown.Item href="/profile">
                   <img
                     src={profileIcon}
                     style={{ paddingRight: 12 }}
@@ -53,7 +53,7 @@ export default function NavBar() {
                   />
                   My Profile
                 </Dropdown.Item>
-                <Dropdown.Item href="#/action-2">
+                <Dropdown.Item href="/statements">
                   <img
                     src={statement}
                     style={{ paddingRight: 12 }}
