@@ -37,7 +37,11 @@ export default function NavBar() {
               <img src={post} alt="Post button" />
             </Nav.Link> */}
             <CreatePost />
-            <Nav.Link href="#features" style={{ paddingRight: 50 }}>
+            <Nav.Link
+              href="#"
+              style={{ paddingRight: 50 }}
+              onClick={() => alert("Under Construction")}
+            >
               <img src={chat} alt="Chat bubble" />
             </Nav.Link>
             <Dropdown>
