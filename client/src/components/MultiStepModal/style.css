@@ -1,0 +1,9 @@
+button.close {
+  border: none;
+  background: transparent;
+  color: red;
+}
+
+span.sr-only {
+  display: none !important;
+}
