@@ -2,6 +2,7 @@ import React from "react";
 // import { Row, Col, Button } from "react-bootstrap";
 import SignUpModal from "./../SignUpModal";
 import LoginModal from "./../LoginModal";
+import MultiStepModal from "./../MultiStepModal";
 import Logo from "./../../assets/img/Logo.svg";
 import "./style.css";
 
@@ -17,10 +18,9 @@ export default function SignUp() {
       <div>WE ARE EXCITED TO GET TO KNOW YOU!</div>
       <div>Choose a sign up option:</div>
       <SignUpModal />
+      <MultiStepModal />
       {/* <button className="sign-up-btn">Sign Up with Email</button> */}
-      <button className="sign-up-btn">Sign Up with Twitter</button>
-      <button className="sign-up-btn">Sign Up with Google</button>
-      <button className="sign-up-btn">Sign Up with Apple</button>
+
       <LoginModal position="signUp" />
       <div>
         By signing up, you agree to our Privacy Policy and Terms of Service.
