@@ -41,3 +41,40 @@
   font-family: "Jost";
   src: url("./assets/font/Jost/Jost-VariableFont_wght.ttf") format("truetype");
 }
+
+.default-btn {
+  background: #5998a6 !important;
+  border-radius: 35px !important;
+  height: 44px !important;
+  color: #fff !important;
+}
+
+.header-1 {
+  font-family: Jost;
+  font-weight: 500;
+  font-size: 36px;
+  line-height: 52px;
+  margin-bottom: 0px;
+}
+
+.header-2 {
+  font-family: Jost;
+  font-weight: normal;
+  font-size: 20px;
+}
+
+.header-3 {
+  font-family: Jost;
+  font-weight: 400;
+  font-size: 20px;
+}
+
+.body-text {
+  font-family: Jost;
+  font-weight: normal;
+  font-size: 16px;
+}
+
+.row-spacing {
+  margin: 25px 0px !important;
+}

@@ -10,7 +10,7 @@ module.exports = {
   findAll: function (req, res) {
     db.User.find()
       .then((dbModel) => {
-        console.log(dbModel);
+        // console.log(dbModel);
         return res.json(dbModel);
       })
       .catch((err) => res.status(422).json(err));
@@ -40,7 +40,7 @@ module.exports = {
     var first_name = req.body.first_name;
     var last_name = req.body.last_name;
     var user_type = req.body.user_type;
-    var displayName = `${first_name} ${last_name}`
+    var displayName = `${first_name} ${last_name}`;
 
     const newFirebaseUserRecord = {
       email: email_address,
@@ -71,7 +71,7 @@ module.exports = {
           status: "active",
           firebase_uid: newUid,
           username: username,
-          display_name: displayName
+          display_name: displayName,
         };
         console.log(`New user Object: ${newUser}`);
 

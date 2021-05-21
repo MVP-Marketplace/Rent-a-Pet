@@ -1,5 +1,5 @@
 import React from "react";
-// import { Row, Col, Button } from "react-bootstrap";
+import { Row, Col, Button } from "react-bootstrap";
 import SignUpModal from "./../SignUpModal";
 import LoginModal from "./../LoginModal";
 import MultiStepModal from "./../MultiStepModal";
@@ -9,22 +9,15 @@ import "./style.css";
 export default function SignUp() {
   return (
     <div className="sign-up-component">
-      <span style={{ fontSize: 24, color: "red" }}>
-        Will need to add styling
-      </span>
-      <div style={{ margin: 10, borderBottom: "2px #B2AFCE solid" }}>
-        <img src={Logo} alt="Heart with a paw" />
-      </div>
-      <div>WE ARE EXCITED TO GET TO KNOW YOU!</div>
-      <div>Choose a sign up option:</div>
-      <SignUpModal />
-      <MultiStepModal />
-      {/* <button className="sign-up-btn">Sign Up with Email</button> */}
+      <Row className="justify-content-md-center">
+        <p className="header-2">JOIN CRITTER TODAY!</p>
 
-      <LoginModal position="signUp" />
-      <div>
-        By signing up, you agree to our Privacy Policy and Terms of Service.
-      </div>
+        <SignUpModal />
+
+        <MultiStepModal />
+
+        <LoginModal position="signUp" />
+      </Row>
     </div>
   );
 }

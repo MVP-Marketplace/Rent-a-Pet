@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
-import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
+import { Input, Space, Tooltip } from "antd";
+import {
+  EyeInvisibleOutlined,
+  EyeTwoTone,
+  InfoCircleOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
+// import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
 import Paw from "./../../assets/img/paw.svg";
 import "./style.css";
 
@@ -41,7 +48,7 @@ export default function SignUpModal() {
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSignUp}>
-            <Form.Group controlId="formBasicEmail">
+            {/* <Form.Group controlId="formBasicEmail">
               <Form.Label>Email</Form.Label>
               <Form.Control
                 type="email"
@@ -49,8 +56,14 @@ export default function SignUpModal() {
                 onChange={({ target }) => setEmailAddress(target.value)}
                 value={emailAddress}
               />
-            </Form.Group>
-            <Form.Group controlId="formBasicEmail">
+            </Form.Group> */}
+            <Input
+              type="email"
+              placeholder="Email"
+              onChange={({ target }) => setEmailAddress(target.value)}
+              value={emailAddress}
+            />
+            {/* <Form.Group controlId="formBasicEmail">
               <Form.Label>Username</Form.Label>
               <Form.Control
                 type="text"
@@ -58,36 +71,26 @@ export default function SignUpModal() {
                 onChange={({ target }) => setUsername(target.value)}
                 value={username}
               />
-            </Form.Group>
+            </Form.Group> */}
+            <Input
+              placeholder="Enter your username"
+              prefix={<UserOutlined className="site-form-item-icon" />}
+              onChange={({ target }) => setUsername(target.value)}
+              value={username}
+            />
 
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label>
-                Password
-                <button href="#" onClick={changePasswordType}>
-                  {type === "password" ? (
-                    <>
-                      <BsFillEyeFill />
-                      Show
-                    </>
-                  ) : (
-                    <>
-                      <BsFillEyeSlashFill />
-                      Hide
-                    </>
-                  )}
-                </button>
-              </Form.Label>
-              <Form.Control
-                type={type}
-                placeholder="Password"
-                onChange={({ target }) => setPassword(target.value)}
-                value={password}
-              />
-            </Form.Group>
+            <Input.Password
+              placeholder="Password"
+              iconRender={(visible) =>
+                visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+              }
+              onChange={({ target }) => setPassword(target.value)}
+              value={password}
+            />
 
-            <Button variant="primary" type="submit">
+            <button className="default-btn btn" type="submit">
               Get Started
-            </Button>
+            </button>
           </Form>
         </Modal.Body>
       </Modal>

@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const routes = require("./server/routes/api/index");
 const fileUpload = require("express-fileupload");
 const cloudinary = require("cloudinary").v2;
-const cors = require('cors');
+const cors = require("cors");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
