@@ -10,17 +10,27 @@ export default function SettingNav(props) {
   return (
     <>
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <span>Setting</span>
+        <span className="header-2" style={{ padding: "10px" }}>
+          Setting
+        </span>
         <img src={gear} alt="Gear" style={{ padding: "10px" }} />
       </div>
       <Nav defaultActiveKey="1" className="flex-column">
         <Nav.Item>
-          <Nav.Link eventKey="1" onClick={(e) => props.handleSettingChange(e)}>
+          <Nav.Link
+            className="header-3"
+            eventKey="1"
+            onClick={(e) => props.handleSettingChange(e)}
+          >
             Account
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link eventKey="2" onClick={(e) => props.handleSettingChange(e)}>
+          <Nav.Link
+            className="header-3"
+            eventKey="2"
+            onClick={(e) => props.handleSettingChange(e)}
+          >
             My Profile
           </Nav.Link>
         </Nav.Item>

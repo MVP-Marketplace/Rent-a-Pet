@@ -29,3 +29,7 @@
 .custom-file-input:active::before {
   background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
 }
+
+/* .ant-input {
+  background: #efeff5 !important;
+} */

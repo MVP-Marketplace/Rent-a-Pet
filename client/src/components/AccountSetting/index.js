@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Row, Container, Col } from "react-bootstrap";
+import { Input, Space, Tooltip } from "antd";
+import {
+  EyeInvisibleOutlined,
+  EyeTwoTone,
+  UserOutlined,
+} from "@ant-design/icons";
 import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
 import "./style.css";
 
@@ -26,105 +32,79 @@ export default function AccountSetting() {
   const handleSignUp = (e) => {
     e.preventDefault();
 
-    console.log(emailAddress, username, newPassword, confirmPassword);
+    console.log(
+      emailAddress,
+      username,
+      oldPassword,
+      newPassword,
+      confirmPassword
+    );
   };
   return (
     <>
-      <span>Account</span>
-      <Form onSubmit={handleSignUp}>
-        {" "}
-        <Form.Group controlId="formBasicEmail">
+      <Row>
+        <span className="header-2">Account</span>
+      </Row>
+      <Row>
+        <Form>
           <Form.Label>Username</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Username"
+          <Input
+            className="input-border"
+            placeholder="Enter your username"
+            prefix={<UserOutlined className="site-form-item-icon" />}
             onChange={({ target }) => setUsername(target.value)}
             value={username}
           />
-        </Form.Group>
-        <Form.Group controlId="formBasicEmail">
           <Form.Label>Email</Form.Label>
-          <Form.Control
+          <Input
+            className="input-border"
             type="email"
-            placeholder="Enter Email"
+            placeholder="Email"
             onChange={({ target }) => setEmailAddress(target.value)}
             value={emailAddress}
           />
-        </Form.Group>
-        <span>Change Password</span>
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>
-            <button className="btn" href="#" onClick={changePasswordType}>
-              {type === "password" ? (
-                <>
-                  <BsFillEyeFill />
-                  Show
-                </>
-              ) : (
-                <>
-                  <BsFillEyeSlashFill />
-                  Hide
-                </>
-              )}
-            </button>
-          </Form.Label>
-          <Form.Control
-            type={type}
+          <Form.Label>Change Password</Form.Label>
+          <Input.Password
+            className="input-border"
             placeholder="Old Password"
+            iconRender={(visible) =>
+              visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+            }
             onChange={({ target }) => setOldPassword(target.value)}
             value={oldPassword}
           />
-        </Form.Group>
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>
-            <button className="btn" href="#" onClick={changePasswordType}>
-              {type === "password" ? (
-                <>
-                  <BsFillEyeFill />
-                  Show
-                </>
-              ) : (
-                <>
-                  <BsFillEyeSlashFill />
-                  Hide
-                </>
-              )}
-            </button>
-          </Form.Label>
-          <Form.Control
-            type={type}
+          <Input.Password
+            className="input-border"
             placeholder="New Password"
+            iconRender={(visible) =>
+              visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+            }
             onChange={({ target }) => setNewPassword(target.value)}
             value={newPassword}
           />
-        </Form.Group>
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>
-            <button className="btn" href="#" onClick={changePasswordType}>
-              {type === "password" ? (
-                <>
-                  <BsFillEyeFill />
-                  Show
-                </>
-              ) : (
-                <>
-                  <BsFillEyeSlashFill />
-                  Hide
-                </>
-              )}
-            </button>
-          </Form.Label>
-          <Form.Control
-            type={type}
+          <Input.Password
+            className="input-border"
             placeholder="Confirm Password"
+            iconRender={(visible) =>
+              visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+            }
             onChange={({ target }) => setConfirmPassword(target.value)}
             value={confirmPassword}
           />
-        </Form.Group>
-        <Button variant="primary" type="submit">
-          Save
-        </Button>
-      </Form>
+        </Form>
+      </Row>
+      <Row>
+        <Col style={{ textAlign: "end" }}>
+          <button
+            className="default-btn btn justify-content-end"
+            type="submit"
+            style={{ width: "150px" }}
+            onClick={handleSignUp}
+          >
+            Save
+          </button>
+        </Col>
+      </Row>
     </>
   );
 }

@@ -6,7 +6,7 @@ import ProfileSetting from "./../components/ProfileSetting";
 import NavBar from "../components/NavBar";
 
 export default function Setting() {
-  const [activeKey, setActiveKey] = useState(1);
+  const [activeKey, setActiveKey] = useState("1");
   const handleSettingChange = (e) => {
     setActiveKey(e.target.dataset.rbEventKey);
   };

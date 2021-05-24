@@ -7,3 +7,36 @@
   padding: 5px 20px !important;
   border-radius: 5px;
 }
+
+.seperator {
+  display: flex;
+  flex-direction: row;
+}
+
+.seperator:before,
+.seperator:after {
+  color: #8bb7c1;
+  content: "";
+  flex: 1 1;
+  border-bottom: 3px solid;
+  margin: auto;
+}
+
+.seperator:before {
+  margin-right: 10px;
+}
+
+.seperator:after {
+  margin-left: 10px;
+}
+
+.input-border {
+  border: 2px solid #5998a6 !important;
+  border-radius: 6px !important;
+  margin-bottom: 10px !important;
+}
+
+.modal-content {
+  border-radius: 16px !important;
+  border: 2px solid #5998a6 !important;
+}
