@@ -9,7 +9,7 @@ export default function StatementNav(props) {
   return (
     <>
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <span>Statements</span>
+        <span className="header-2">Statements</span>
         <img src={statment} alt="Graph" style={{ padding: "10px" }} />
       </div>
       <Nav defaultActiveKey="1" className="flex-column">

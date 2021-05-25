@@ -1,7 +1,12 @@
 import React, { useState } from "react";
-import { Modal, Button, Form } from "react-bootstrap";
-import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
-import Paw from "./../../assets/img/paw.svg";
+import { Modal, Button, Form, Row, Col } from "react-bootstrap";
+import { Input, Space, Tooltip } from "antd";
+import {
+  EyeInvisibleOutlined,
+  EyeTwoTone,
+  UserOutlined,
+} from "@ant-design/icons";
+import Google from "./../../assets/img/google.svg";
 import "./style.css";
 
 export default function SignUpModal(props) {
@@ -46,52 +51,56 @@ export default function SignUpModal(props) {
       )}
 
       <Modal show={show} onHide={handleClose}>
-        <Modal.Header>
-          <Modal.Title>
-            <img src={Paw} alt="Animal paw" />
-          </Modal.Title>
-        </Modal.Header>
         <Modal.Body>
-          <Form onSubmit={handleSignUp}>
-            <Form.Group controlId="formBasicEmail">
-              <Form.Label>Email or Username</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter Email"
-                onChange={({ target }) => setLogin(target.value)}
-                value={login}
-              />
-            </Form.Group>
+          <Row>
+            <div className="header-1" style={{ textAlign: "center" }}>
+              LOG IN
+            </div>
+          </Row>
+          <button className="default-btn btn" style={{ width: "100%" }}>
+            <img
+              src={Google}
+              alt="Google Logo"
+              style={{ paddingRight: "20px" }}
+            />
+            Log In with Google
+          </button>
+          <span className="seperator">OR</span>
+          <Form onSubmit={handleSignUp} style={{ textAlign: "center" }}>
+            <Input
+              className="input-border"
+              type="text"
+              placeholder="Email"
+              onChange={({ target }) => setLogin(target.value)}
+              value={login}
+            />
+            <Input.Password
+              className="input-border"
+              placeholder="Password"
+              iconRender={(visible) =>
+                visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+              }
+              onChange={({ target }) => setPassword(target.value)}
+              value={password}
+            />
 
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label>
-                Password
-                <button href="#" onClick={changePasswordType}>
-                  {type === "password" ? (
-                    <>
-                      <BsFillEyeFill />
-                      Show
-                    </>
-                  ) : (
-                    <>
-                      <BsFillEyeSlashFill />
-                      Hide
-                    </>
-                  )}
-                </button>
-              </Form.Label>
-              <Form.Control
-                type={type}
-                placeholder="Password"
-                onChange={({ target }) => setPassword(target.value)}
-                value={password}
-              />
-            </Form.Group>
-
-            <Button variant="primary" type="submit" href="/profile">
-              Log In
-            </Button>
+            <a
+              className="default-btn btn"
+              type="submit"
+              href="/feed"
+              style={{ width: "150px", marginBottom: "10px" }}
+            >
+              LOG IN
+            </a>
           </Form>
+          <div style={{ textAlign: "center" }}>
+            <p>
+              Don't have an account? <a href="#">Sign up</a>
+            </p>
+            <p>
+              Forgot your password? <a href="#">Recover password</a>
+            </p>
+          </div>
         </Modal.Body>
       </Modal>
     </>

@@ -74,7 +74,13 @@ export default function CreatePost({ userId, username }) {
   return (
     <div>
       {previewSource && (
-        <img src={previewSource} alt="chosen" style={{ height: "300px" }} />
+        <img
+          src={previewSource}
+          alt="chosen"
+          style={{
+            height: "300px",
+          }}
+        />
       )}
       <form className="form" onSubmit={handleSubmitFile}>
         <input

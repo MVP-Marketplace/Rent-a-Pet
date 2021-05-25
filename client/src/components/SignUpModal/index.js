@@ -1,14 +1,13 @@
 import React, { useState } from "react";
-import { Modal, Button, Form } from "react-bootstrap";
+import { Modal, Button, Form, Row, Col } from "react-bootstrap";
 import { Input, Space, Tooltip } from "antd";
 import {
   EyeInvisibleOutlined,
   EyeTwoTone,
-  InfoCircleOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-// import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
-import Paw from "./../../assets/img/paw.svg";
+import Login from "./../LoginModal";
+import Google from "./../../assets/img/google.svg";
 import "./style.css";
 
 export default function SignUpModal() {
@@ -41,13 +40,22 @@ export default function SignUpModal() {
       </button>
 
       <Modal show={show} onHide={handleClose}>
-        <Modal.Header>
-          <Modal.Title>
-            <img src={Paw} alt="Animal paw" />
-          </Modal.Title>
-        </Modal.Header>
         <Modal.Body>
-          <Form onSubmit={handleSignUp}>
+          <Row>
+            <div className="header-1" style={{ textAlign: "center" }}>
+              SIGN UP
+            </div>
+          </Row>
+          <button className="default-btn btn" style={{ width: "100%" }}>
+            <img
+              src={Google}
+              alt="Google Logo"
+              style={{ paddingRight: "20px" }}
+            />
+            Sign up with Google
+          </button>
+          <span className="seperator">OR</span>
+          <Form onSubmit={handleSignUp} style={{ textAlign: "center" }}>
             {/* <Form.Group controlId="formBasicEmail">
               <Form.Label>Email</Form.Label>
               <Form.Control
@@ -58,6 +66,7 @@ export default function SignUpModal() {
               />
             </Form.Group> */}
             <Input
+              className="input-border"
               type="email"
               placeholder="Email"
               onChange={({ target }) => setEmailAddress(target.value)}
@@ -73,6 +82,7 @@ export default function SignUpModal() {
               />
             </Form.Group> */}
             <Input
+              className="input-border"
               placeholder="Enter your username"
               prefix={<UserOutlined className="site-form-item-icon" />}
               onChange={({ target }) => setUsername(target.value)}
@@ -80,6 +90,7 @@ export default function SignUpModal() {
             />
 
             <Input.Password
+              className="input-border"
               placeholder="Password"
               iconRender={(visible) =>
                 visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
@@ -88,10 +99,20 @@ export default function SignUpModal() {
               value={password}
             />
 
-            <button className="default-btn btn" type="submit">
-              Get Started
-            </button>
+            <a
+              className="default-btn btn"
+              type="submit"
+              style={{ width: "150px" }}
+              href="/setting"
+            >
+              SIGN UP
+            </a>
           </Form>
+          <div style={{ textAlign: "center" }}>
+            <p>
+              Already have an account? <a href="#">Log In</a>
+            </p>
+          </div>
         </Modal.Body>
       </Modal>
     </>

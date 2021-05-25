@@ -1,12 +1,16 @@
 import React, { useState } from "react";
-import { Modal } from "react-bootstrap";
+import { Modal, Row, Col } from "react-bootstrap";
+import { Input, Tooltip } from "antd";
 import post from "./../../assets/img/post.svg";
+import PicIcon from "./../../assets/img/picIcon.svg";
+import ProfileIcon from "./../../assets/img/profileIcon.svg";
 // import API from "../../utils/API";
 import "./style.css";
 
 export default function CreatePost() {
   const [show, setShow] = useState(false);
   const [fileInput, setFileInput] = useState("");
+  const [selectedFile, setSelectedFile] = useState("");
   const [comment, setComment] = useState("");
 
   const username = "username";
@@ -15,10 +19,14 @@ export default function CreatePost() {
   const handleShow = () => setShow(true);
 
   const handleFileInputChange = (e) => {
-    // const file = e.target.files[0];
-    // previewFile(file);
-    // setSelectedFile(file);
-    console.log(e.target.value);
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setSelectedFile(reader.result);
+    };
+    console.log(file);
+    console.log(typeof e.target.value);
     setFileInput(e.target.value);
   };
 
@@ -33,8 +41,7 @@ export default function CreatePost() {
       // })
       //   .then((res) => console.log(res))
       //   .catch((err) => console.log(err));
-
-      setFileInput("");
+      // setFileInput("");
       // setPreviewSource("");
       // setSuccessMsg("Image uploaded successfully");
     } catch (err) {
@@ -46,7 +53,7 @@ export default function CreatePost() {
   const handleSubmitFile = (e) => {
     e.preventDefault();
 
-    console.log(fileInput);
+    console.log(comment, fileInput);
 
     if (!fileInput) return;
     // const reader = new FileReader();
@@ -58,6 +65,8 @@ export default function CreatePost() {
     //   console.error("AHHHHHHHH!!");
     //   setErrMsg("something went wrong!");
     // };
+    setFileInput("");
+    setComment("");
     handleClose();
   };
 
@@ -76,37 +85,69 @@ export default function CreatePost() {
           <Modal.Title>Create a Post</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <form className="form" onSubmit={handleSubmitFile}>
-            {username}
-            <div>
-              <input
-                aria-label="Add a comment"
-                autoComplete="off"
-                className="form-control"
-                type="text"
-                name="add-comment"
-                placeholder="What would you like to share?"
-                value={comment}
-                onChange={({ target }) => setComment(target.value)}
+          <Row>
+            <Col>
+              <img
+                src={ProfileIcon}
+                alt="Profile Icon"
+                style={{ height: "24px" }}
               />
-
-              <input
-                id="fileInput"
-                type="file"
-                name="image"
-                onChange={handleFileInputChange}
-                value={fileInput}
-                className="custom-file-input"
-              />
-
-              <button
-                className="btn"
-                type="submit"
-                style={{ border: "1px solid black" }}
-              >
-                Post
-              </button>
-            </div>
+              <span style={{ paddingLeft: "10px" }}>{username}</span>
+            </Col>
+          </Row>
+          <form
+            className="form"
+            onSubmit={handleSubmitFile}
+            style={{ marginTop: "10px" }}
+          >
+            <Row>
+              <Col>
+                <Input
+                  aria-label="Add a comment"
+                  autoComplete="off"
+                  type="text"
+                  name="add-comment"
+                  placeholder="What would you like to share?"
+                  value={comment}
+                  onChange={({ target }) => setComment(target.value)}
+                  suffix={
+                    <Tooltip title="Add Picture">
+                      <label className="btn" style={{ padding: "0px" }}>
+                        <img
+                          src={PicIcon}
+                          alt="Pic Icon"
+                          style={{ height: "24px" }}
+                        />
+                        <input
+                          type="file"
+                          name="image"
+                          style={{ display: "none" }}
+                          onChange={handleFileInputChange}
+                          value={fileInput}
+                        />
+                      </label>
+                    </Tooltip>
+                  }
+                />
+              </Col>
+            </Row>
+            <Row style={{ textAlign: "end" }}>
+              <Col>
+                <button
+                  className="btn"
+                  type="submit"
+                  style={{
+                    border: "1px solid white",
+                    marginTop: "10px",
+                    width: "100px",
+                    background: "#5998A6",
+                    color: "white",
+                  }}
+                >
+                  Post
+                </button>
+              </Col>
+            </Row>
           </form>
         </Modal.Body>
       </Modal>
