@@ -36,10 +36,12 @@ export default function SignUpModal(props) {
         </button>
       ) : (
         <>
-          Already have an account?{" "}
-          <a href="#" onClick={handleShow}>
-            Log in
-          </a>
+          <p>
+            Already have an account?{" "}
+            <a href="#" onClick={handleShow}>
+              Log in
+            </a>
+          </p>
         </>
       )}
 
