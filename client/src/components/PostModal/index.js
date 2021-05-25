@@ -75,7 +75,7 @@ export default function CreatePost() {
       <button
         className="btn"
         onClick={handleShow}
-        style={{ padding: "8px 50px 8px 8px" }}
+        style={{ padding: "8px ", marginRight: "50px" }}
       >
         <img src={post} alt="Post button" />
       </button>

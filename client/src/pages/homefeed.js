@@ -5,14 +5,24 @@ import PostCard from "../components/PostCard";
 import Suggested from "../components/Suggested";
 
 export default function HomeFeed() {
+  let users = [];
+
+  for (let i = 0; i < 3; i++) {
+    users.push("username " + i);
+  }
   return (
     <>
       <NavBar />
       <Container fluid>
         <Row className="justify-content-md-center">
           <Col lg={6}>
-            {" "}
-            <PostCard />
+            {users ? (
+              users.map((res, index) => {
+                return <PostCard key={index} data={res} id={index} />;
+              })
+            ) : (
+              <>HI</>
+            )}
           </Col>
           <Col lg={3}>
             <Suggested />
