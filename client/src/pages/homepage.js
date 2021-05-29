@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Container, Image } from "react-bootstrap";
 import NavBar from "./../components/NavBar";
+import Login from "./../components/Demo";
 import SignUp from "./../components/SignUp";
 import Shiba from "./../assets/img/Shiba.png";
 import CrittrMobile from "./../assets/img/CrittrMobile.png";

@@ -6,4 +6,7 @@ export default {
   getUsers: function () {
     return axios.get("/api/user");
   },
+  createUser: function (user) {
+    return axios.post("/api/user", user);
+  },
 };

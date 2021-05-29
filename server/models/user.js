@@ -1,32 +1,30 @@
 const mongoose = require("mongoose");
 
-const userSchema = mongoose.Schema({
-   
-        first_name: {type: String, required: true},
-        last_name: {type: String, required: true},
-        email_address: {type: String, required: true},
-        user_type: {
-                type: String, 
-                required: true,
-                enum: ['owner','renter','admin'],
-                default: 'renter'    
-            },
-        status: {
-            type: String, 
-            required: true, 
-            enum: ['active','inactive'],
-            default: "inactive"
-        },
-        firebase_uid: {type: String, required: true},
-        avatar: {type:String},
-        stripe_account_id: {type: String},
-        username: { type: String, required: true },
-        display_name: { type: String }
-},
-{
-    toJSON: { virtuals: true }
-}
-
+const userSchema = mongoose.Schema(
+  {
+    email_address: { type: String, required: true },
+    // user_type: {
+    //   type: String,
+    //   required: true,
+    //   enum: ["owner", "renter", "admin"],
+    //   default: "renter",
+    // },
+    // status: {
+    //   type: String,
+    //   required: true,
+    //   enum: ["active", "inactive"],
+    //   default: "inactive",
+    // },
+    pet: [{ type: String }],
+    firebase_uid: { type: String, required: true },
+    avatar: { type: String },
+    stripe_account_id: { type: String },
+    username: { type: String, required: true },
+    display_name: { type: String },
+  },
+  {
+    toJSON: { virtuals: true },
+  }
 );
 
 // avoiding using child reference because we don't know how many sets of banking
@@ -54,3 +52,32 @@ userSchema.virtual("PaymentInformation", {
 });
 
 module.exports = mongoose.model("User", userSchema);
+
+// const userSchema = mongoose.Schema({
+
+//   first_name: {type: String, required: true},
+//   last_name: {type: String, required: true},
+//   email_address: {type: String, required: true},
+//   user_type: {
+//           type: String,
+//           required: true,
+//           enum: ['owner','renter','admin'],
+//           default: 'renter'
+//       },
+//   status: {
+//       type: String,
+//       required: true,
+//       enum: ['active','inactive'],
+//       default: "inactive"
+//   },
+//   firebase_uid: {type: String, required: true},
+//   avatar: {type:String},
+//   stripe_account_id: {type: String},
+//   username: { type: String, required: true },
+//   display_name: { type: String }
+// },
+// {
+// toJSON: { virtuals: true }
+// }
+
+// );
