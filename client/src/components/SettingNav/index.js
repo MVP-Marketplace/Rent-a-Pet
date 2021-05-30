@@ -15,7 +15,7 @@ export default function SettingNav(props) {
         </span>
         <img src={gear} alt="Gear" style={{ padding: "10px" }} />
       </div>
-      <Nav defaultActiveKey="1" className="flex-column">
+      <Nav defaultActiveKey="2" className="flex-column">
         <Nav.Item>
           <Nav.Link
             className="header-3"

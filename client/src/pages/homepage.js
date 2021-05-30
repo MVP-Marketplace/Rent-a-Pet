@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Row, Col, Container, Image } from "react-bootstrap";
+import { AuthContext } from "./../Auth";
 import NavBar from "./../components/NavBar";
-import Login from "./../components/Demo";
 import SignUp from "./../components/SignUp";
 import Shiba from "./../assets/img/Shiba.png";
 import CrittrMobile from "./../assets/img/CrittrMobile.png";
@@ -10,6 +10,8 @@ import Tiger from "./../assets/img/tiger.png";
 import API from "./../utils/API";
 
 export default function Home() {
+  const { currentUser } = useContext(AuthContext);
+  console.log(currentUser);
   // const [user, setUser] = useState(null);
   // Get users
   const loadPost = async () => {
@@ -71,7 +73,7 @@ export default function Home() {
             <p className="header-2">
               Raise up to $2,000 a month with your pet!
             </p>
-            <p className="body-text">
+            <div className="body-text">
               <ol>
                 <li>Create profiles for both you and your pet.</li>
                 <li>
@@ -93,7 +95,7 @@ export default function Home() {
                 </ol>
                 <li>Share your animals with others!</li>
               </ol>
-            </p>
+            </div>
           </Col>
           <Col>
             <Image

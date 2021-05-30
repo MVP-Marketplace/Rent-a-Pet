@@ -10,7 +10,7 @@
 
 .dropdown-menu {
   width: 575px !important;
-  height: 240px !important;
+  /* height: 240px !important; */
   top: 56px;
   right: -100px;
   text-align: right !important;
@@ -22,7 +22,7 @@
 
 .dropdown-item {
   height: 80px !important;
-  font-size: 24px;
+  font-size: 24px !important;
   font-weight: 700 !important;
   padding-top: 20px !important;
 }

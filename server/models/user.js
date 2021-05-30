@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const userSchema = mongoose.Schema(
   {
+    _id: { type: String, required: true },
     email_address: { type: String, required: true },
     // user_type: {
     //   type: String,
@@ -15,9 +16,11 @@ const userSchema = mongoose.Schema(
     //   enum: ["active", "inactive"],
     //   default: "inactive",
     // },
+    about: { type: String },
+    website: { type: String },
     pet: [{ type: String }],
-    firebase_uid: { type: String, required: true },
     avatar: { type: String },
+    background: { type: String },
     stripe_account_id: { type: String },
     username: { type: String, required: true },
     display_name: { type: String },

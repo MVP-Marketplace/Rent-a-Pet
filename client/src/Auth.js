@@ -9,19 +9,19 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     firebaseApp.auth().onAuthStateChanged((user) => {
-      setCurrentUser(user)
-      setPending(false)
+      setCurrentUser(user);
+      setPending(false);
     });
   }, []);
 
-  if(pending){
-    return <>Loading...</>
+  if (pending) {
+    return <>Loading...</>;
   }
 
   return (
     <AuthContext.Provider
       value={{
-        currentUser
+        currentUser,
       }}
     >
       {children}
