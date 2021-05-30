@@ -34,65 +34,105 @@ module.exports = {
    * @param {*} res
    */
   create: function (req, res) {
-    var newUid;
+    // console.log(req.body);
+    let info = req.body;
 
-    var email_address = req.body.email_address;
-    var first_name = req.body.first_name;
-    var last_name = req.body.last_name;
-    var user_type = req.body.user_type;
-    var displayName = `${first_name} ${last_name}`;
+    // let username = req.body.email.split("@").slice(0, 1).join("");
 
-    const newFirebaseUserRecord = {
-      email: email_address,
-      emailVerified: false,
-      password: req.body.password,
-      displayName: `${first_name} ${last_name}`,
-      disabled: false,
-    };
+    // let newUser = {
+    //   email: req.body.email,
+    //   password: req.body.password,
+    //   displayName:
+    // }
+    // var newUid;
 
-    // step 1:  create new user in Firebase.  Don't think this is optimal but doing this to avoid getting stuck
-    // alternative is to turn this call into middleware.
+    // var email_address = req.body.email_address;
+    // var first_name = req.body.first_name;
+    // var last_name = req.body.last_name;
+    // var user_type = req.body.user_type;
+    // var displayName = `${first_name} ${last_name}`;
 
-    admin
-      .auth()
-      .createUser(newFirebaseUserRecord)
-      .then((userRecord) => {
-        console.log("New User Record", userRecord);
-        console.log("Successfully created new user:", userRecord.uid);
-        newUid = userRecord.uid;
+    // const newFirebaseUserRecord = {
+    //   email: email_address,
+    //   emailVerified: false,
+    //   password: req.body.password,
+    //   displayName: `${first_name} ${last_name}`,
+    //   disabled: false,
+    // };
 
-        // step 2: create the new user in our database.
+    // // step 1:  create new user in Firebase.  Don't think this is optimal but doing this to avoid getting stuck
+    // // alternative is to turn this call into middleware.
 
-        const newUser = {
-          first_name: first_name,
-          last_name: last_name,
-          email_address: email_address,
-          user_type: user_type,
-          status: "active",
-          firebase_uid: newUid,
-          username: username,
-          display_name: displayName,
-        };
-        console.log(`New user Object: ${newUser}`);
+    if (req.body.type === "Email") {
+      admin
+        .auth()
+        .createUser({
+          email: info.email,
+          password: info.password,
+        })
+        .then((userCredential) => {
+          console.log(userCredential.uid, info.email, info.username);
 
-        /**
-         * The request may include the following
-         * UserProfile: {fName, LName, emailAddress, uid},
-         * PetPreferences: {species, age, gender},
-         * BankingDetails: {abaNumber, accountNumber},
-         * PaymentDetails: {cardNumber, expirationDate, billingZipCode}
-         *
-         * First save the User, then call the controller to save the other elements in their respective tables.
-         */
-
-        db.User.create(newUser)
-          .then((dbModel) => res.status(200).json(dbModel))
-          .catch((err) => res.status(422).json(err));
+          db.User.create({
+            email_address: info.email,
+            firebase_uid: userCredential.uid,
+            username: info.username,
+          })
+            .then((dbModel) => res.status(200).json(dbModel))
+            .catch((err) => res.status(422).json(err));
+        })
+        .catch((err) => console.log(err));
+    } else {
+      db.User.create({
+        email_address: info.email,
+        display_name: info.display,
+        firebase_uid: info.uid,
+        username: info.username,
       })
-      .catch((error) => {
-        console.log("Error creating new user: ", error);
-        res.status(422).json(error);
-      });
+        .then((dbModel) => res.status(200).json(dbModel))
+        .catch((err) => res.status(422).json(err));
+    }
+
+    // admin
+    //   .auth()
+    //   .createUser(newFirebaseUserRecord)
+    //   .then((userRecord) => {
+    //     console.log("New User Record", userRecord);
+    //     console.log("Successfully created new user:", userRecord.uid);
+    //     newUid = userRecord.uid;
+
+    //     // step 2: create the new user in our database.
+
+    //     const newUser = {
+    //       first_name: first_name,
+    //       last_name: last_name,
+    //       email_address: email_address,
+    //       user_type: user_type,
+    //       status: "active",
+    //       firebase_uid: newUid,
+    //       username: username,
+    //       display_name: displayName,
+    //     };
+    //     console.log(`New user Object: ${newUser}`);
+
+    //     /**
+    //      * The request may include the following
+    //      * UserProfile: {fName, LName, emailAddress, uid},
+    //      * PetPreferences: {species, age, gender},
+    //      * BankingDetails: {abaNumber, accountNumber},
+    //      * PaymentDetails: {cardNumber, expirationDate, billingZipCode}
+    //      *
+    //      * First save the User, then call the controller to save the other elements in their respective tables.
+    //      */
+
+    //     db.User.create(newUser)
+    //       .then((dbModel) => res.status(200).json(dbModel))
+    //       .catch((err) => res.status(422).json(err));
+    //   })
+    //   .catch((error) => {
+    //     console.log("Error creating new user: ", error);
+    //     res.status(422).json(error);
+    //   });
   },
 
   /**

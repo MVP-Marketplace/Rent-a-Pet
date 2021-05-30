@@ -6,31 +6,65 @@ import {
   EyeTwoTone,
   UserOutlined,
 } from "@ant-design/icons";
+import API from "./../../utils/API";
+import firebaseApp from "./../../firebase/firebase.utils";
+import firebase from "firebase/app";
 import Login from "./../LoginModal";
 import Google from "./../../assets/img/google.svg";
 import "./style.css";
+
+const provider = new firebase.auth.GoogleAuthProvider();
 
 export default function SignUpModal() {
   const [show, setShow] = useState(false);
   const [emailAddress, setEmailAddress] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [type, setType] = useState("password");
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const changePasswordType = () => {
-    if (type === "text") {
-      setType("password");
-    } else {
-      setType("text");
-    }
-  };
+  async function googleSignin() {
+    await firebaseApp
+      .auth()
+      .signInWithPopup(provider)
+      .then(function (result) {
+        let token = result.credential.accessToken;
+        let user = result.user;
+        console.log(user);
+
+        API.createUser({
+          email: user.email,
+          display: user.displayName,
+          uid: user.uid,
+          username: user.displayName.split(" ").join(""),
+          type: "Google",
+        })
+          .then((res) => console.log(res))
+          .catch((err) => console.log(err));
+
+        console.log(token);
+      })
+      .catch(function (error) {
+        let errorCode = error.code;
+        let errorMessage = error.message;
+
+        console.log(errorCode);
+        console.log(errorMessage);
+      });
+  }
 
   const handleSignUp = (e) => {
     e.preventDefault();
     console.log(emailAddress, username, password);
+    API.createUser({
+      email: emailAddress,
+      password: password,
+      username: username,
+      type: "Email",
+    })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -46,7 +80,11 @@ export default function SignUpModal() {
               SIGN UP
             </div>
           </Row>
-          <button className="default-btn btn" style={{ width: "100%" }}>
+          <button
+            className="default-btn btn"
+            style={{ width: "100%" }}
+            onClick={googleSignin}
+          >
             <img
               src={Google}
               alt="Google Logo"
@@ -56,15 +94,6 @@ export default function SignUpModal() {
           </button>
           <span className="seperator">OR</span>
           <Form onSubmit={handleSignUp} style={{ textAlign: "center" }}>
-            {/* <Form.Group controlId="formBasicEmail">
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="Enter Email"
-                onChange={({ target }) => setEmailAddress(target.value)}
-                value={emailAddress}
-              />
-            </Form.Group> */}
             <Input
               className="input-border"
               type="email"
@@ -72,15 +101,7 @@ export default function SignUpModal() {
               onChange={({ target }) => setEmailAddress(target.value)}
               value={emailAddress}
             />
-            {/* <Form.Group controlId="formBasicEmail">
-              <Form.Label>Username</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Username"
-                onChange={({ target }) => setUsername(target.value)}
-                value={username}
-              />
-            </Form.Group> */}
+
             <Input
               className="input-border"
               placeholder="Enter your username"
@@ -99,14 +120,14 @@ export default function SignUpModal() {
               value={password}
             />
 
-            <a
+            <button
               className="default-btn btn"
               type="submit"
               style={{ width: "150px" }}
               href="/setting"
             >
               SIGN UP
-            </a>
+            </button>
           </Form>
           <div style={{ textAlign: "center" }}>
             <p>

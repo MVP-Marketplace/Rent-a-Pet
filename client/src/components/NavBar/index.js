@@ -22,7 +22,7 @@ export default function NavBar() {
         backgroundColor: "#fff",
       }}
     >
-      <Navbar.Brand href="/" style={{ paddingLeft: 100 }}>
+      <Navbar.Brand href="/" style={{ marginLeft: 100 }}>
         <img src={paw} alt="Animal paw" />
       </Navbar.Brand>
       <Col className="mr-auto" style={{ textAlign: "right" }}>
@@ -31,7 +31,7 @@ export default function NavBar() {
         ) : (
           <Nav
             className="mr-auto"
-            style={{ justifyContent: "flex-end", paddingRight: 100 }}
+            style={{ justifyContent: "flex-end", marginRight: 100 }}
           >
             {/* <Nav.Link href="#home" style={{ paddingRight: 50 }}>
               <img src={post} alt="Post button" />
@@ -39,7 +39,7 @@ export default function NavBar() {
             <CreatePost />
             <Nav.Link
               href="#"
-              style={{ paddingRight: 50 }}
+              style={{ marginRight: 50 }}
               onClick={() => alert("Under Construction")}
             >
               <img src={chat} alt="Chat bubble" />

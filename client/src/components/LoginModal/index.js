@@ -6,11 +6,17 @@ import {
   EyeTwoTone,
   UserOutlined,
 } from "@ant-design/icons";
+import API from "./../../utils/API";
+import firebaseApp from "./../../firebase/firebase.utils";
+import firebase from "firebase/app";
 import Google from "./../../assets/img/google.svg";
 import "./style.css";
 
+const provider = new firebase.auth.GoogleAuthProvider();
+
 export default function SignUpModal(props) {
   // console.log(props.position);
+
   const [show, setShow] = useState(false);
   const [login, setLogin] = useState("");
 
@@ -20,17 +26,48 @@ export default function SignUpModal(props) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const changePasswordType = () => {
-    if (type === "text") {
-      setType("password");
-    } else {
-      setType("text");
-    }
-  };
+  async function googleSignin() {
+    await firebaseApp
+      .auth()
+      .signInWithPopup(provider)
+      .then(function (result) {
+        let token = result.credential.accessToken;
+        let user = result.user;
+        console.log(user);
+        // API.createUser({
+        //   email: user.email,
+        //   display: user.displayName,
+        //   uid: user.uid,
+        //   username: user.displayName.split(" ").join(""),
+        //   type: "Google",
+        // })
+        //   .then((res) => console.log(res))
+        //   .catch((err) => console.log(err));
+
+        console.log(token);
+      })
+      .catch(function (error) {
+        let errorCode = error.code;
+        let errorMessage = error.message;
+
+        console.log(errorCode);
+        console.log(errorMessage);
+      });
+  }
+
+  // const changePasswordType = () => {
+  //   if (type === "text") {
+  //     setType("password");
+  //   } else {
+  //     setType("text");
+  //   }
+  // };
 
   const handleSignUp = (e) => {
     e.preventDefault();
-    console.log(login, password);
+    API.createUser({ email: login, password: password, type: "Email" })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -57,7 +94,11 @@ export default function SignUpModal(props) {
               LOG IN
             </div>
           </Row>
-          <button className="default-btn btn" style={{ width: "100%" }}>
+          <button
+            className="default-btn btn"
+            style={{ width: "100%" }}
+            onClick={googleSignin}
+          >
             <img
               src={Google}
               alt="Google Logo"
@@ -84,14 +125,13 @@ export default function SignUpModal(props) {
               value={password}
             />
 
-            <a
+            <button
               className="default-btn btn"
               type="submit"
-              href="/feed"
               style={{ width: "150px", marginBottom: "10px" }}
             >
               LOG IN
-            </a>
+            </button>
           </Form>
           <div style={{ textAlign: "center" }}>
             <p>
