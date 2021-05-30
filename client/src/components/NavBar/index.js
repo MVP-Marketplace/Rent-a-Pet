@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Navbar, Nav, Col, Dropdown } from "react-bootstrap";
+import { AuthContext } from "./../../Auth";
 import LoginModal from "./../LoginModal";
 import CreatePost from "./../PostModal";
 import paw from "./../../assets/img/paw.svg";
 import chat from "./../../assets/img/chat.svg";
 import profileIcon from "./../../assets/img/profileIcon.svg";
-import post from "./../../assets/img/post.svg";
+import firebaseApp from "./../../firebase/firebase.utils";
+// import post from "./../../assets/img/post.svg";
 import settings from "./../../assets/img/settings.svg";
 import statement from "./../../assets/img/statement.svg";
 import "./style.css";
 
 export default function NavBar() {
+  const { currentUser } = useContext(AuthContext);
   //Created a demo for login and logout
   //Todo
   //Make mobile friendly
@@ -26,16 +29,14 @@ export default function NavBar() {
         <img src={paw} alt="Animal paw" />
       </Navbar.Brand>
       <Col className="mr-auto" style={{ textAlign: "right" }}>
-        {window.location.href === "http://localhost:3000/" ? (
-          <LoginModal position="nav" />
-        ) : (
+        {currentUser ? (
           <Nav
             className="mr-auto"
             style={{ justifyContent: "flex-end", marginRight: 100 }}
           >
             {/* <Nav.Link href="#home" style={{ paddingRight: 50 }}>
-              <img src={post} alt="Post button" />
-            </Nav.Link> */}
+             <img src={post} alt="Post button" />
+           </Nav.Link> */}
             <CreatePost />
             <Nav.Link
               href="#"
@@ -69,9 +70,14 @@ export default function NavBar() {
                   <img src={settings} style={{ paddingRight: 12 }} alt="Gear" />
                   Settings
                 </Dropdown.Item>
+                <Dropdown.Item onClick={() => firebaseApp.auth().signOut()}>
+                  Log Out
+                </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           </Nav>
+        ) : (
+          <LoginModal position="nav" />
         )}
       </Col>
     </Navbar>

@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^12.8.3",
     "antd": "^4.15.5",
     "bootstrap": "^5.0.0",
+    "cloudinary-react": "^1.7.0",
     "dotenv": "^8.2.0",
     "react": "^17.0.1",
     "react-bootstrap": "^1.5.2",

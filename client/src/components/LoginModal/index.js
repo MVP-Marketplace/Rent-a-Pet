@@ -18,7 +18,7 @@ export default function SignUpModal(props) {
   // console.log(props.position);
 
   const [show, setShow] = useState(false);
-  const [login, setLogin] = useState("");
+  const [email, setEmail] = useState("");
 
   const [password, setPassword] = useState("");
   const [type, setType] = useState("password");
@@ -63,12 +63,25 @@ export default function SignUpModal(props) {
   //   }
   // };
 
-  const handleSignUp = (e) => {
+  async function handleSignUp(e) {
     e.preventDefault();
-    API.createUser({ email: login, password: password, type: "Email" })
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-  };
+    try {
+      await firebaseApp
+        .auth()
+        .signInWithEmailAndPassword(email, password)
+        .then(({ user }) => {
+          return user.getIdToken().then((idToken) => {
+            console.log("User Token", idToken);
+            // this token needs to be stored in state so it can be passed to any API calls in the http header.
+            // Authentication: 'Bearer'+tokenValueHere
+          });
+        });
+
+      // history.push("/");
+    } catch (error) {
+      alert(error);
+    }
+  }
 
   return (
     <>
@@ -112,8 +125,8 @@ export default function SignUpModal(props) {
               className="input-border"
               type="text"
               placeholder="Email"
-              onChange={({ target }) => setLogin(target.value)}
-              value={login}
+              onChange={({ target }) => setEmail(target.value)}
+              value={email}
             />
             <Input.Password
               className="input-border"

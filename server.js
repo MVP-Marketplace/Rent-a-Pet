@@ -23,7 +23,14 @@ cloudinary.config({
 });
 
 // Define middleware here
-app.use(express.urlencoded({ extended: true }));
+// app.use(express.urlencoded({ extended: true }));
+
+app.use(express.urlencoded({ limit: "50mb", extended: true }));
+app.use(express.json({ limit: "50mb" }));
+// Serve up static assets (usually on heroku)
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
 
 app.use(
   cors({
@@ -57,13 +64,6 @@ app.use(
   })
 );
 /** QUESTION:  How do we tell express to use JSON parser on non-webhook routes? */
-
-app.use(express.urlencoded({ limit: "50mb", extended: true }));
-app.use(express.json({ limit: "50mb" }));
-// Serve up static assets (usually on heroku)
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
-}
 
 // Add routes, both API and view
 app.use("/api", routes);

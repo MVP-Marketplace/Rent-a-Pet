@@ -1,6 +1,6 @@
 const { response } = require("express");
-const db = require("../models/index");
-cloudinary = require("cloudinary").v2;
+const db = require("../models/index"),
+  cloudinary = require("cloudinary").v2;
 const firebaseAdmin = require("../../firebase-server-side/firebase-server-side-utils");
 const admin = require("firebase-admin");
 
@@ -22,8 +22,8 @@ module.exports = {
    */
   findById: function (req, res) {
     db.User.findById(req.params.id)
-      .populate("BankingInformation")
-      .populate("PaymentInformation")
+      // .populate("BankingInformation")
+      // .populate("PaymentInformation")
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
@@ -75,7 +75,7 @@ module.exports = {
 
           db.User.create({
             email_address: info.email,
-            firebase_uid: userCredential.uid,
+            _id: userCredential.uid,
             username: info.username,
           })
             .then((dbModel) => res.status(200).json(dbModel))
@@ -86,7 +86,7 @@ module.exports = {
       db.User.create({
         email_address: info.email,
         display_name: info.display,
-        firebase_uid: info.uid,
+        _id: info.uid,
         username: info.username,
       })
         .then((dbModel) => res.status(200).json(dbModel))
@@ -140,16 +140,38 @@ module.exports = {
    * @param {*} req
    * @param {*} res
    */
-  update: function (req, res) {
-    // { following: `${req.body.info.followerId}` }
-    console.log(req.body.info.followerId);
-    console.log(req.params.id);
-    db.User.findByIdAndUpdate(
-      { _id: req.params.id },
-      { $push: { following: req.body.info.followerId } }
-    )
+  update: async function (req, res) {
+    let newInfo = {
+      username: req.body.username,
+      display_name: req.body.display_name,
+      about: req.body?.about,
+      website: req.body?.website,
+    };
+    // // console.log(newInfo);
+    // // console.log(req.params.id);
+
+    if (req.body.avatar.length > 100) {
+      const avatarStr = req.body.avatar;
+      const avatarResponse = await cloudinary.uploader.upload(avatarStr, {
+        upload_preset: "ml_default",
+      });
+
+      newInfo.avatar = avatarResponse.public_id;
+    }
+
+    if (req.body.background.length > 100) {
+      const backgroundStr = req.body.background;
+      const backgroundResponse = await cloudinary.uploader.upload(
+        backgroundStr,
+        {
+          upload_preset: "ml_default",
+        }
+      );
+      newInfo.background = backgroundResponse.secure_url;
+    }
+
+    db.User.findByIdAndUpdate({ _id: req.params.id }, newInfo)
       .then((dbModel) => {
-        console.log(dbModel);
         return res.json(dbModel);
       })
       .catch((err) => res.status(422).json(err));
@@ -179,39 +201,41 @@ module.exports = {
 
     const userId = req.params.id;
 
-    await cloudinary.uploader
-      .upload(req.body.image)
-      .then((uploadResult) => {
-        db.User.findOneAndUpdate(
-          { _id: userId },
-          {
-            $set: {
-              avatar: uploadResult.secure_url,
-            },
-          }
-        ).catch((dbErr) => res.status(500).json(dbErr));
-      }) // I think the missing catch should go here.
-      .catch((findErr) => {
-        res.status(402).json({
-          message: "User not found",
-          findErr,
-        });
-      })
-      .then((saveResult) => {
-        res
-          .status(200)
-          .json({
-            message: "upload success",
-            saveResult,
-            // QUESTION: can we retrieve a thumbnail of the asset from cloudinary???
-          })
-          .catch((error) => {
-            res.status(501).json({
-              message: "upload failure",
-              error,
-            });
-          });
-      })
-      .catch((ultimateError) => res.json(ultimateError));
+    console.log(req.body);
+
+    // await cloudinary.uploader
+    //   .upload(req.body.image)
+    //   .then((uploadResult) => {
+    //     db.User.findOneAndUpdate(
+    //       { _id: userId },
+    //       {
+    //         $set: {
+    //           avatar: uploadResult.secure_url,
+    //         },
+    //       }
+    //     ).catch((dbErr) => res.status(500).json(dbErr));
+    //   }) // I think the missing catch should go here.
+    //   .catch((findErr) => {
+    //     res.status(402).json({
+    //       message: "User not found",
+    //       findErr,
+    //     });
+    //   })
+    //   .then((saveResult) => {
+    //     res
+    //       .status(200)
+    //       .json({
+    //         message: "upload success",
+    //         saveResult,
+    //         // QUESTION: can we retrieve a thumbnail of the asset from cloudinary???
+    //       })
+    //       .catch((error) => {
+    //         res.status(501).json({
+    //           message: "upload failure",
+    //           error,
+    //         });
+    //       });
+    //   })
+    //   .catch((ultimateError) => res.json(ultimateError));
   },
 };
